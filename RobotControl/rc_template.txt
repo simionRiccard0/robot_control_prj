@@ -1,0 +1,32 @@
+ Program
+   Init Variables
+   BeforeStart
+     Gripper Activate
+     Gripper Open (1)
+   Robot Program
+     Cam Locate
+       For object(s) found
+         <empty>
+       If no object found
+         'Optional'
+     MoveJ
+       Ref
+     MoveJ
+       emcima
+     MoveL
+       pillar
+     Gripper Close (1)
+     MoveL
+       seva
+     MoveJ
+       place
+     placement≔placement_const
+     MoveL
+       dejar
+     Gripper Open (1)
+     MoveL
+       sube
+     soltarob≔pose_add( soltarob, p[0,0,0.2,0,0,0])
+     Gripper Open (1)
+     Gripper Activate
+     Gripper Move1% (1)

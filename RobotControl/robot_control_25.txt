@@ -1,0 +1,23 @@
+ Program
+   Variables Setup
+   BeforeStart
+     MoveJ
+       Homing
+       Gripper Reset and Activate
+       Gripper Open (2)
+   Robot Program
+     MoveJ
+       Waypoint_1
+       Gripper Close (2)
+       Waypoint_4
+     MoveJ
+       Waypoint_2
+       Gripper Open (2)
+       Waypoint_5
+     MoveJ
+       Waypoint_3
+       Gripper Close (2)
+       Waypoint_4
+     MoveJ
+       Waypoint_6
+       Gripper Open (2)
