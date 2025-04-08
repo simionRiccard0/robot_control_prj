@@ -1,16 +1,6 @@
 #cfg.py
 import pygame
 
-# Pygame related variables
-font = None
-screen = None
-
-# Shapes
-SHAPES = None
-
-#pieces
-pieces = None
-
 # Configuration file for constants and settings
 
 # Screen dimensions
@@ -33,9 +23,30 @@ RESET_BUTTON_RECT = pygame.Rect(WIDTH - 320, 10, 90, 30)
 UNDO_BUTTON_RECT = pygame.Rect(WIDTH - 430, 10, 90, 30)
 REDO_BUTTON_RECT = pygame.Rect(WIDTH - 540, 10, 90, 30)
 
-# Shape colors
-COLORS = [
-    (255, 0, 0), (0, 255, 0), (0, 0, 255),
-    (255, 255, 0), (255, 165, 0), (128, 0, 128),
-    (0, 255, 255)
-]
+# Create menu buttons for shapes
+y_offset = 10
+button_width = 150
+button_height = 30
+button_spacing = 10
+
+# Pygame related variables
+font = None
+screen = None
+
+# Shapes
+SHAPES = None
+shape_counts =None 
+selected_piece = None
+mouse_offset = (0, 0)
+
+#Assets
+font = None
+COLORS = None
+TRASHCAN_ICON = None
+snap_sound = None
+
+#Pieces
+pieces = None
+menu_buttons = None
+undo_stack = None
+redo_stack = None

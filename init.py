@@ -1,47 +1,46 @@
 import pygame
-from cfg import WIDTH, HEIGHT, BACKGROUND_COLOR, MENU_COLOR, TRASHCAN_COLOR, BUTTON_COLOR, TRASHCAN_RECT, EXPORT_BUTTON_RECT, RESET_BUTTON_RECT, UNDO_BUTTON_RECT, REDO_BUTTON_RECT
-from shapes import Shape, extract_counts, SHAPES
+import cfg
+from shapes import init_shapes, extract_counts
 
 def pygame_init():
 	pygame.init()
-	cfg.font = pygame.font.Font(None, 24)
-	COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 165, 0), (128, 0, 128), (0, 255, 255)]
-	cfg.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+	cfg.screen = pygame.display.set_mode((cfg.WIDTH, cfg.HEIGHT))
 	pygame.display.set_caption("Tangram Game")
 
-def init():
-	pass
-
-
-# Initialize pygame
-pygame.init()
-
-# Set up the display
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Tangram Game")
-
 # Load assets
-TRASHCAN_ICON = pygame.image.load("trashcan.png")  # Ensure this image is available
-TRASHCAN_ICON = pygame.transform.scale(TRASHCAN_ICON, (30, 30))
-snap_sound = pygame.mixer.Sound("snap.wav")  # Ensure this sound file is available
+def load_assets():
+	cfg.font = pygame.font.Font(None, 24)
+	cfg.COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 165, 0), (128, 0, 128), (0, 255, 255)]
+	cfg.TRASHCAN_ICON = pygame.image.load("trashcan.png")  # Ensure this image is available
+	cfg.TRASHCAN_ICON = pygame.transform.scale(cfg.TRASHCAN_ICON, (30, 30))
+	cfg.snap_sound = pygame.mixer.Sound("snap.mp3")  # Ensure this sound file is available
 
 # Define Tangram Pieces (with center reference)
-pieces = []
-menu_buttons = []
-undo_stack = []
-redo_stack = []
+def init_pieces():
+	cfg.pieces = []
+	cfg.menu_buttons = []
+	cfg.undo_stack = []
+	cfg.redo_stack = []
 
 # Example usage
-shape_counts = extract_counts(SHAPES) # Initial count for each shape
-selected_piece = None
-mouse_offset = (0, 0)
+def control_init():
+	cfg.shape_counts = shapes.extract_counts(SHAPES) # Initial count for each shape
+	cfg.selected_piece = None
+	cfg.mouse_offset = (0, 0)
 
-# Create menu buttons for shapes
-y_offset = 10
-button_width = 150
-button_height = 30
-button_spacing = 10
+def init_menu_buttons():
+	cfg.shape_counts = extract_counts(cfg.SHAPES)
+	cfg.menu_buttons = []
+	for i, shape in enumerate(cfg.SHAPES.keys()):
+		x_position = 10 + (i * (cfg.button_width + cfg.button_spacing))
+		cfg.menu_buttons.append({"shape": shape, "rect": pygame.Rect(x_position, 
+																cfg.y_offset, 
+																cfg.button_width, 
+																cfg.button_height)})
 
-for i, shape in enumerate(SHAPES.keys()):
-    x_position = 10 + (i * (button_width + button_spacing))
-    menu_buttons.append({"shape": shape, "rect": pygame.Rect(x_position, y_offset, button_width, button_height)})
+def init():
+	pygame_init()
+	load_assets()
+	init_shapes()
+	init_pieces()
+	init_menu_buttons()
