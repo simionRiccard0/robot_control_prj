@@ -1,0 +1,27 @@
+ Program
+   Variables Setup
+   BeforeStart
+     Gripper Activate
+     Gripper Open (1)
+   Robot Program
+     Control by 192.168.56.1
+     PLOC2D
+       Pick and Place
+         Start
+           'Set start position and open gripper'
+           MoveJ
+             Start_1
+         Approach
+           MoveJ
+             PLOC_prepick_1
+         Pick
+           MoveL
+             PLOC_pick_1
+         Clear
+           'Close gripper'
+           MoveL
+             PLOC_clear_1
+         Place
+           'Set drop position and open gripper'
+           MoveJ
+             Place_1
