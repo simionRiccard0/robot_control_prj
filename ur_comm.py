@@ -49,13 +49,14 @@ def recv_data():
 def send_lp(host, port):
 	while True :
 		if not(cfg.snd_q.empty()):
-			try:
-				data = cfg.snd_q.get() #One element at the time
-				tmp_cnt = str(data) #Quick & dirty string conversion
-				binStr = tmp_cnt.encode('ascii')
-				host.sendall(binStr)
-			except Exception as e:
-				print(e)
+			for i in range(cfg.snd_q.qsize()):
+				try:
+					data = cfg.snd_q.get() #One element at the time
+					tmp_cnt = str(data) #Quick & dirty string conversion
+					binStr = tmp_cnt.encode('ascii')
+					host.sendall(binStr)
+				except Exception as e:
+					print(e)
 		else:
 			time.sleep(0.1)
 

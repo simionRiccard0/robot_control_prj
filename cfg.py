@@ -8,7 +8,7 @@ ip_address = "127.0.0.1"
 trgt_port = 8888
 
 # Screen dimensions
-WIDTH, HEIGHT = 1200, 675
+WIDTH, HEIGHT = 1300, 800
 MENU_HEIGHT = 50
 
 # Colors

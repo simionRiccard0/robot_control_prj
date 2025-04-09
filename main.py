@@ -18,7 +18,7 @@ def snap_to_nearest(piece):
 					return
 
 def export_layout():
-	layout = [{"shape": p.shape_type, "center": p.center, "angle": p.angle} for p in cfg.pieces]
+	layout = [[p.shape_type, p.center, p.angle] for p in cfg.pieces]
 	print("Tangram Layout:")
 	for item in layout:
 		print(item)
