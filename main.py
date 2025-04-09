@@ -2,6 +2,8 @@ import pygame
 from init import init#cfg.screen, cfg.pieces, cfg.menu_buttons, cfg.undo_stack, cfg.redo_stack, cfg.shape_counts, cfg.selected_piece, cfg.mouse_offset, cfg.snap_sound
 import cfg
 from shapes import Shape, extract_counts
+import ur_comm as ur
+import threading
 
 def snap_to_nearest(piece):
 	for other_piece in cfg.pieces:
@@ -20,6 +22,7 @@ def export_layout():
 	print("Tangram Layout:")
 	for item in layout:
 		print(item)
+		ur.send_data(item)
 
 def undo():
 	if cfg.undo_stack:
@@ -47,7 +50,18 @@ def redo():
 
 def app_init():
 	init()
-	print(cfg.menu_buttons)
+
+	print(cfg.thread_list)
+
+	send_thread = threading.Thread(target=ur.send_lp, args=(cfg.host, cfg.port))
+	cfg.thread_list.append(send_thread)
+
+	receive_thread = threading.Thread(target=ur.recv_lp, args=(cfg.host, cfg.port))
+	cfg.thread_list.append(receive_thread)
+
+	for thread in cfg.thread_list:
+		thread.start()
+
 
 def main_loop():
 	running = True
@@ -143,6 +157,8 @@ def main_loop():
 
 def app_exit():
 	pygame.quit()
+	for thread in cfg.thread_list:
+		thread.join()
 
 if __name__ == "__main__":
 	app_init()

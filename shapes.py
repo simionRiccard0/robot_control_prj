@@ -7,7 +7,7 @@ import pygame
 import math
 import cfg
 
-VECTOR_LENGTH = 15
+VECTOR_LENGTH = cfg.VECTOR_LENGTH
 
 def get_trgl_cog(size):
 	return np.round(2*size/3, 3)
@@ -36,7 +36,7 @@ def init_shapes():
 			((VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4), (VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle
 			"count": 1
 		},
-		"triangle_large": {
+		"triangle_big": {
 			"points": [(TRGL_LNGTH_LRG, TRGL_LNGTH_LRG), (TRGL_LNGTH_LRG, 0), (0, TRGL_LNGTH_LRG)],
 			"vectors": [(-(VECTOR_LENGTH - TRGL_LRG_COG)*np.sin(np.pi/4), (VECTOR_LENGTH - TRGL_LRG_COG)*np.cos(np.pi/4)),
 			((VECTOR_LENGTH - TRGL_LRG_COG)*np.cos(np.pi/4), (VECTOR_LENGTH - TRGL_LRG_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle

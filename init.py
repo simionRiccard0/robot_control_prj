@@ -1,6 +1,7 @@
 import pygame
 import cfg
 from shapes import init_shapes, extract_counts
+from ur_comm import tcp_init, sock_init
 
 def pygame_init():
 	pygame.init()
@@ -44,3 +45,5 @@ def init():
 	init_shapes()
 	init_pieces()
 	init_menu_buttons()
+	tcp_init()
+	sock_init()

@@ -3,6 +3,10 @@ import pygame
 
 # Configuration file for constants and settings
 
+# IP Address
+ip_address = "127.0.0.1"
+trgt_port = 8888
+
 # Screen dimensions
 WIDTH, HEIGHT = 1200, 675
 MENU_HEIGHT = 50
@@ -14,7 +18,7 @@ SNAP_DISTANCE = 20
 VECTOR_COLOR = (0, 0, 0)
 TRASHCAN_COLOR = (255, 0, 0)
 BUTTON_COLOR = (150, 150, 150)
-VECTOR_LENGTH = 10
+VECTOR_LENGTH = 15
 
 # Rectangles for UI elements
 TRASHCAN_RECT = pygame.Rect(WIDTH - 100, 10, 80, 30)
@@ -50,3 +54,11 @@ pieces = None
 menu_buttons = None
 undo_stack = None
 redo_stack = None
+
+# Communication
+comm_socket = None
+thread_list = None
+snd_q = None
+rcv_q = None
+host = None
+port = None
