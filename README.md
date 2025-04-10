@@ -1,6 +1,6 @@
 # robot_control_prj
 
-Pick&Place project for the Robot Control course, UV Ljubljana.
+Pick&Place with image recognition project for the Robot Control course, UV Ljubljana.
 UR5e 
 
 ## Comm. between PC and Robot
