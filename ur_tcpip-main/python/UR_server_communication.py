@@ -11,7 +11,7 @@
 import socket, struct, time, threading
 
 ###Config###
-ip = "192.168.65.102"
+ip = "192.168.65.190"
 port = 50000
 
 ###globals###

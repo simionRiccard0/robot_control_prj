@@ -1,27 +1,47 @@
  Program
    Variables Setup
    BeforeStart
+     cam_offset≔p[-0.01,0.010,-0.025,0,0,0]
+     i≔0
+     n_shapes≔2
      Gripper Activate
      Gripper Open (1)
+     MoveJ
+       Start
    Robot Program
-     Control by 192.168.56.1
-     PLOC2D
-       Pick and Place
-         Start
-           'Set start position and open gripper'
-           MoveJ
-             Start_1
-         Approach
-           MoveJ
-             PLOC_prepick_1
-         Pick
-           MoveL
-             PLOC_pick_1
-         Clear
-           'Close gripper'
-           MoveL
-             PLOC_clear_1
-         Place
-           'Set drop position and open gripper'
-           MoveJ
-             Place_1
+     Loop i < n_shapes
+       Popup: i
+       PLOC2D
+         Folder
+           Pick and Place
+             Start
+               'Set start position and open gripper'
+               MoveJ
+                 Start
+             'n_shapes≔PLOC_total_1'
+             'Halt'
+             Approach
+               MoveJ
+                 PLOC_prepick
+             Pick
+               PLOC_pick≔pose_add(PLOC_pick,cam_offset)
+               MoveL
+                 PLOC_pick
+                 'Halt'
+               Gripper Close (1)
+             Clear
+               'Close gripper'
+               MoveL
+                 PLOC_clear
+             Place
+               'Set drop position and open gripper'
+               MoveJ
+                 Place
+               Gripper Open (1)
+       i≔i+1
+     'PLOC2D'
+     'PLOC2D'
+     'PLOC2D'
+     'PLOC2D'
+     MoveJ
+       Start
