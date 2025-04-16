@@ -3,7 +3,7 @@
    BeforeStart
      cam_offset≔p[-0.01,0.010,-0.025,0,0,0]
      i≔0
-     n_shapes≔2
+     n_shapes≔3
      Gripper Activate
      Gripper Open (1)
      MoveJ

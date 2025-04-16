@@ -17,8 +17,15 @@ def snap_to_nearest(piece):
 					cfg.snap_sound.play()  # Play snap sound
 					return
 
+def piece_to_pose(shape_type, center, angle):
+	# data send = [piece type, piece pose]
+	#piece pose : [x, y, z, rx, ry, rz]
+	tmp_p = [shape_type, 
+			[round(center[0], 3), round(center[1], 3), 0, 0, 0, angle]]
+	return tmp_p
+
 def export_layout():
-	layout = [[p.shape_type, p.center, p.angle] for p in cfg.pieces]
+	layout = [piece_to_pose(p.shape_type, p.center, p.angle) for p in cfg.pieces]
 	print("Tangram Layout:")
 	for item in layout:
 		print(item)
