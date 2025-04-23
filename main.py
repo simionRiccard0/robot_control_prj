@@ -20,8 +20,12 @@ def snap_to_nearest(piece):
 def piece_to_pose(shape_type, center, angle):
 	# data send = [piece type, piece pose]
 	#piece pose : [x, y, z, rx, ry, rz]
-	tmp_p = [shape_type, 
-			[round(center[0], 3), round(center[1], 3), 0, 0, 0, angle]]
+	tmp_p =[round(center[0]*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[0], 3), 
+			round((center[1]- cfg.MENU_HEIGHT)*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[1], 3), 
+			cfg.TZ, 
+			cfg.RX, 
+			cfg.RY, 
+			angle - cfg.RZ]
 	return tmp_p
 
 def export_layout():
@@ -29,7 +33,7 @@ def export_layout():
 	print("Tangram Layout:")
 	for item in layout:
 		print(item)
-		ur.send_data(item)
+		#ur.send_data(item)
 
 def undo():
 	if cfg.undo_stack:
@@ -57,8 +61,8 @@ def redo():
 
 def app_init():
 	init()
-
-	print(cfg.thread_list)
+	'''
+	#print(cfg.thread_list)
 	cfg.kill_thread_event = threading.Event()
 
 	send_thread = threading.Thread(target=ur.send_lp, args=(cfg.host, cfg.port))
@@ -68,8 +72,11 @@ def app_init():
 	cfg.thread_list.append(receive_thread)
 
 	for thread in cfg.thread_list:
-		thread.start()
-
+		try:
+			thread.start()
+		except:
+			pass
+	'''
 
 def main_loop():
 	running = True
@@ -88,16 +95,11 @@ def main_loop():
 		cfg.screen.blit(cfg.font.render("Reset", True, (0, 0, 0)), (cfg.RESET_BUTTON_RECT.x + 20, cfg.RESET_BUTTON_RECT.y + 5))
 		cfg.screen.blit(cfg.font.render("Undo", True, (0, 0, 0)), (cfg.UNDO_BUTTON_RECT.x + 20, cfg.UNDO_BUTTON_RECT.y + 5))
 		cfg.screen.blit(cfg.font.render("Redo", True, (0, 0, 0)), (cfg.REDO_BUTTON_RECT.x + 20, cfg.REDO_BUTTON_RECT.y + 5))
-
-		for e in pygame.event.get(): 
-			if e.type == pygame.QUIT: 
-				print('the cross has been clicked')
-				app_exit()
-
-
+				
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				running = False
+				app_exit()
 			elif event.type == pygame.MOUSEBUTTONDOWN:
 				if cfg.EXPORT_BUTTON_RECT.collidepoint(event.pos):
 					export_layout()

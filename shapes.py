@@ -7,21 +7,28 @@ import pygame
 import math
 import cfg
 
-VECTOR_LENGTH = cfg.VECTOR_LENGTH
-
 def get_trgl_cog(size):
 	return np.round(2*size/3, 3)
 
-TRGL_LNGTH_SML = 73.7
-TRGL_SML_COG = get_trgl_cog(TRGL_LNGTH_SML)
+def init_shapes_size():
+	global VECTOR_LENGTH, TRGL_LNGTH_SML, TRGL_SML_COG, TRGL_LNGTH_MID, TRGL_MID_COG, TRGL_LNGTH_LRG, TRGL_LRG_COG, SQR_SIZE, PRLL_SIZE, PRLL_LONG_SIZE
+	print(cfg.PIX_MM_RATIO, cfg.MM_PIX_RATIO)
+	VECTOR_LENGTH = cfg.VECTOR_LENGTH * cfg.PIX_MM_RATIO
 
-TRGL_LNGTH_MID = 104.5
-TRGL_MID_COG = get_trgl_cog(TRGL_LNGTH_MID)
+	TRGL_LNGTH_SML = 73.7 * cfg.PIX_MM_RATIO
+	TRGL_SML_COG = get_trgl_cog(TRGL_LNGTH_SML)
 
-TRGL_LNGTH_LRG = 147.5
-TRGL_LRG_COG = get_trgl_cog(TRGL_LNGTH_LRG)
+	TRGL_LNGTH_MID = 104.5 * cfg.PIX_MM_RATIO
+	TRGL_MID_COG = get_trgl_cog(TRGL_LNGTH_MID)
 
-SQR_SIZE = 74 
+	TRGL_LNGTH_LRG = 147.5 * cfg.PIX_MM_RATIO
+	TRGL_LRG_COG = get_trgl_cog(TRGL_LNGTH_LRG)
+
+	SQR_SIZE = 74 * cfg.PIX_MM_RATIO 
+
+	PRLL_SIZE = 52.6 * cfg.PIX_MM_RATIO
+	PRLL_LONG_SIZE = 100 * cfg.PIX_MM_RATIO
+
 def init_shapes():
 	cfg.SHAPES = {
 		"triangle_small": {
@@ -48,7 +55,7 @@ def init_shapes():
 			"count": 1
 		},
 		"parallelogram": {
-			"points": [(0 ,52.05), (52.6, 0), (52.6, 100), (0, 152.05)],
+			"points": [(0 ,PRLL_SIZE), (PRLL_SIZE, 0), (PRLL_SIZE, PRLL_LONG_SIZE), (0, PRLL_LONG_SIZE + PRLL_SIZE)],
 			"vectors": [(VECTOR_LENGTH, 0), (0, -VECTOR_LENGTH)],  # Example vectors for the parallelogram
 			"count": 1
 		}
@@ -84,4 +91,6 @@ def extract_counts(shapes):
 		counts[shape] = shapes[shape]["count"]
 	return counts
 
-
+def transform_planes(pose):
+	pass
+	

@@ -4,12 +4,20 @@ import pygame
 # Configuration file for constants and settings
 
 # IP Address
-ip_address = "192.168.65.183"
+ip_address = "192.168.65.190"
 trgt_port = 8888
 
+# Placing coordinates
+LOWER_COORD = (284, -350) #x, y
+HIGHER_COORD = (544, 25) #x, y for the robot
+TZ = 50 #mm
+RX = 3.12 #rad
+RY = 0 #rad
+RZ = 0 #rad
+
 # Screen dimensions
-WIDTH, HEIGHT = 1300, 800
 MENU_HEIGHT = 50
+WIDTH, HEIGHT = 1300, (910+MENU_HEIGHT)
 
 # Colors
 BACKGROUND_COLOR = (255, 255, 255)
@@ -19,6 +27,7 @@ VECTOR_COLOR = (0, 0, 0)
 TRASHCAN_COLOR = (255, 0, 0)
 BUTTON_COLOR = (150, 150, 150)
 VECTOR_LENGTH = 15
+
 
 # Rectangles for UI elements
 TRASHCAN_RECT = pygame.Rect(WIDTH - 100, 10, 80, 30)
@@ -42,6 +51,11 @@ SHAPES = None
 shape_counts =None 
 selected_piece = None
 mouse_offset = (0, 0)
+
+#Placing plane variables
+MM_PIX_RATIO = None
+PIX_MM_RATIO = None
+
 
 #Assets
 font = None

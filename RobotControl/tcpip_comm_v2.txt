@@ -1,9 +1,9 @@
  Program
    Variables Setup
    BeforeStart
-     open_socket≔socket_open("192.168.65.102",50000,"ur5e_pc")
+     open_socket≔socket_open("192.168.65.197",8888,"ur5e_pc")
      Loop open_socket≟ False 
-       open_socket≔socket_open("192.168.65.102",50000,"ur5e_pc")
+       open_socket≔socket_open("192.168.65.197",8888,"ur5e_pc")
    Robot Program
      'MoveJ'
      If open_socket≟ True 

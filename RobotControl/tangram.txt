@@ -1,7 +1,17 @@
  Program
    Variables Setup
    BeforeStart
-     cam_offset≔p[-0.01,0.010,-0.025,0,0,0]
+     l≔...
+     triangle_mid≔l[0]
+     triangle__s1≔l[1]
+     triangle_s2≔l[2]
+     triangle_big1≔l[3]
+     triangle_big2≔l[4]
+     square≔l[5]
+     parallelogram≔l[6]
+     'open_socket≔socket_open("192.168.65.183", 8888, "ur5e_pc")'
+     'Loop open_socket≟ True '
+     cam_offset≔p[0,0,-0.025,0,0,1.570]
      i≔0
      n_shapes≔3
      Gripper Activate
@@ -10,7 +20,7 @@
        Start
    Robot Program
      Loop i < n_shapes
-       Popup: i
+       'Popup: i'
        PLOC2D
          Folder
            Pick and Place
@@ -35,13 +45,22 @@
                  PLOC_clear
              Place
                'Set drop position and open gripper'
-               MoveJ
-                 Place
+               shitrobot≔PLOC2D_JOB_ID
+               'Popup'
+               If shitrobot ≟ 1
+                 Popup
+                 MoveL
+                   triangle_mid
+               ElseIf shitrobot ≟ 2
+                 MoveJ
+                   triangle__s1
+               ElseIf shitrobot ≟ 3
+                 MoveJ
+                   triangle_big1
+               ElseIf shitrobot ≟ 4
+                 MoveJ
+                   square
                Gripper Open (1)
        i≔i+1
-     'PLOC2D'
-     'PLOC2D'
-     'PLOC2D'
-     'PLOC2D'
      MoveJ
        Start

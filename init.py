@@ -1,6 +1,6 @@
 import pygame
 import cfg
-from shapes import init_shapes, extract_counts
+from shapes import init_shapes, init_shapes_size, extract_counts
 from ur_comm import tcp_init, sock_init
 
 def pygame_init():
@@ -29,6 +29,15 @@ def control_init():
 	cfg.selected_piece = None
 	cfg.mouse_offset = (0, 0)
 
+
+def placing_init():
+	cfg.MM_PIX_RATIO = (cfg.HIGHER_COORD[1] - cfg.LOWER_COORD[1])/cfg.WIDTH #x & y are reversed between the bot and pygame plan
+	#print("coords diff", (cfg.HIGHER_COORD[0] - cfg.LOWER_COORD[0]))
+	cfg.PIX_MM_RATIO = 1/cfg.MM_PIX_RATIO
+	cfg.HEIGHT = int((cfg.HIGHER_COORD[0] - cfg.LOWER_COORD[0])*cfg.PIX_MM_RATIO) + cfg.MENU_HEIGHT
+
+	print(cfg.HEIGHT)
+
 def init_menu_buttons():
 	cfg.shape_counts = extract_counts(cfg.SHAPES)
 	cfg.menu_buttons = []
@@ -42,8 +51,10 @@ def init_menu_buttons():
 def init():
 	pygame_init()
 	load_assets()
+	placing_init()
+	init_shapes_size()
 	init_shapes()
 	init_pieces()
 	init_menu_buttons()
-	tcp_init()
-	sock_init()
+	#tcp_init()
+	#sock_init()
