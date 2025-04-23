@@ -59,6 +59,7 @@ def app_init():
 	init()
 
 	print(cfg.thread_list)
+	cfg.kill_thread_event = threading.Event()
 
 	send_thread = threading.Thread(target=ur.send_lp, args=(cfg.host, cfg.port))
 	cfg.thread_list.append(send_thread)
@@ -87,6 +88,12 @@ def main_loop():
 		cfg.screen.blit(cfg.font.render("Reset", True, (0, 0, 0)), (cfg.RESET_BUTTON_RECT.x + 20, cfg.RESET_BUTTON_RECT.y + 5))
 		cfg.screen.blit(cfg.font.render("Undo", True, (0, 0, 0)), (cfg.UNDO_BUTTON_RECT.x + 20, cfg.UNDO_BUTTON_RECT.y + 5))
 		cfg.screen.blit(cfg.font.render("Redo", True, (0, 0, 0)), (cfg.REDO_BUTTON_RECT.x + 20, cfg.REDO_BUTTON_RECT.y + 5))
+
+		for e in pygame.event.get(): 
+			if e.type == pygame.QUIT: 
+				print('the cross has been clicked')
+				app_exit()
+
 
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -163,6 +170,8 @@ def main_loop():
 		pygame.display.flip()
 
 def app_exit():
+	cfg.kill_thread_event.set()
+	pygame.display.quit()
 	pygame.quit()
 	for thread in cfg.thread_list:
 		thread.join()

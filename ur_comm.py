@@ -13,14 +13,14 @@ def tcp_init():
 	cfg.thread_list = []
 	cfg.comm_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cfg.comm_socket.bind((cfg.ip_address, cfg.trgt_port))
-	cfg.comm_socket.settimeout(10)
+	cfg.comm_socket.settimeout(1)
 	cfg.comm_socket.listen()
 	#cfg.comm_socket = s
 
 def sock_init():
 	try:
 		cfg.host, cfg.port = cfg.comm_socket.accept()
-		print("Connected to socket "+str(cfg.host))
+		print("Connected to socket "+str(cfg.ip_address)+":"+str(cfg.trgt_port))
 	except Exception as e:
 		print(e)
 
@@ -47,7 +47,12 @@ def recv_data():
 
 
 def send_lp(host, port):
+	print("send_loop started")
 	while True :
+
+		if cfg.kill_thread_event.is_set():
+			break
+
 		if not(cfg.snd_q.empty()):
 			for i in range(cfg.snd_q.qsize()):
 				try:
@@ -63,7 +68,11 @@ def send_lp(host, port):
 
 def recv_lp(host, port):
 	rec_arr = None
+	print("recv_loop started")
 	while True:
+		if cfg.kill_thread_event.is_set():
+			break
+
 		try:
 			tmp_recv = host.recv(1024)
 			if not data:

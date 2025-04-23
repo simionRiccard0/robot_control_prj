@@ -4,7 +4,7 @@ import pygame
 # Configuration file for constants and settings
 
 # IP Address
-ip_address = "127.0.0.1"
+ip_address = "192.168.65.183"
 trgt_port = 8888
 
 # Screen dimensions
@@ -58,6 +58,7 @@ redo_stack = None
 # Communication
 comm_socket = None
 thread_list = None
+kill_thread_event = None
 snd_q = None
 rcv_q = None
 host = None
