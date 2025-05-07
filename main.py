@@ -17,23 +17,78 @@ def snap_to_nearest(piece):
 					cfg.snap_sound.play()  # Play snap sound
 					return
 
-def piece_to_pose(shape_type, center, angle):
+def piece_to_pose(center, angle):
 	# data send = [piece type, piece pose]
 	#piece pose : [x, y, z, rx, ry, rz]
-	tmp_p =[round(center[0]*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[0], 3), 
-			round((center[1]- cfg.MENU_HEIGHT)*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[1], 3), 
-			cfg.TZ, 
-			cfg.RX, 
-			cfg.RY, 
-			angle - cfg.RZ]
+	tmp_p =[str(round(center[0]*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[0], 3)).encode('ascii'), 
+			str(round((center[1]- cfg.MENU_HEIGHT)*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[1], 3)).encode('ascii'), 
+			str(cfg.TZ).encode('ascii'), 
+			str(cfg.RX).encode('ascii'), 
+			str(cfg.RY).encode('ascii'), 
+			str(angle - cfg.RZ).encode('ascii')]
 	return tmp_p
 
+def fetch_total_counts(data_dict):
+    """
+    This function takes a dictionary as input and returns a new dictionary
+    containing the 'count' value for each key in the input dictionary.
+
+    :param data_dict: Dictionary with nested 'count' keys.
+    :return: Dictionary with 'count' values.
+    """
+    counts = 0
+    for key, value in data_dict.items():
+        if isinstance(value, dict) and 'count' in value:
+            counts  += value['count']
+        else:
+            counts  += 0  # or handle the case where 'count' is not present
+    return counts
+
+def fetch_counts(data_dict):
+    """
+    This function takes a dictionary as input and returns a new dictionary
+    containing the 'count' value for each key in the input dictionary.
+
+    :param data_dict: Dictionary with nested 'count' keys.
+    :return: Dictionary with 'count' values.
+    """
+    counts = {}
+    for key, value in data_dict.items():
+        if isinstance(value, dict) and 'count' in value:
+            counts[key] = value['count']
+    return counts
+
 def export_layout():
-	layout = [piece_to_pose(p.shape_type, p.center, p.angle) for p in cfg.pieces]
+	#layout = [piece_to_pose(p.center, p.angle) for p in cfg.pieces]
+	layout = [cfg.SHAPE_0]*fetch_total_counts(cfg.SHAPES)
+
+	counts = fetch_counts(cfg.SHAPES)
+	small_i = 0
+	big_i = 0
+
+	for p in cfg.pieces:
+		if p.shape_type == "triangle_mid":
+			layout[0] = piece_to_pose(p.center, p.angle)
+
+		elif p.shape_type == "triangle_small":
+			layout[1+small_i] = piece_to_pose(p.center, p.angle)
+			small_i += 1
+
+		elif p.shape_type == "triangle_big":
+			layout[1+big_i] = piece_to_pose(p.center, p.angle)
+			big_i += 1
+
+		elif p.shape_type == "square":
+			layout[5] = piece_to_pose(p.center, p.angle)
+
+		elif p.shape_type == "parallelogram":
+			layout[6] = piece_to_pose(p.center, p.angle)
 	print("Tangram Layout:")
+	#print(layout)
+	#ur.send_data(layout)
 	for item in layout:
 		print(item)
-		#ur.send_data(item)
+		ur.send_data(item)
 
 def undo():
 	if cfg.undo_stack:
@@ -61,7 +116,7 @@ def redo():
 
 def app_init():
 	init()
-	'''
+	
 	#print(cfg.thread_list)
 	cfg.kill_thread_event = threading.Event()
 
@@ -76,7 +131,7 @@ def app_init():
 			thread.start()
 		except:
 			pass
-	'''
+	
 
 def main_loop():
 	running = True

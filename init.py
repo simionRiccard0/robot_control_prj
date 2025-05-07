@@ -56,5 +56,5 @@ def init():
 	init_shapes()
 	init_pieces()
 	init_menu_buttons()
-	#tcp_init()
-	#sock_init()
+	tcp_init()
+	sock_init()

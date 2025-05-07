@@ -13,7 +13,7 @@ def tcp_init():
 	cfg.thread_list = []
 	cfg.comm_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	cfg.comm_socket.bind((cfg.ip_address, cfg.trgt_port))
-	cfg.comm_socket.settimeout(1)
+	cfg.comm_socket.settimeout(10)
 	cfg.comm_socket.listen()
 	#cfg.comm_socket = s
 
@@ -75,7 +75,7 @@ def recv_lp(host, port):
 
 		try:
 			tmp_recv = host.recv(1024)
-			if not data:
+			if not tmp_recv:
 				break  # Connection closed
 			try:
 				tmp_data = tmp_recv.decode('ascii')

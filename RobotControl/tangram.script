@@ -1,20 +1,14 @@
 def tangram():
   global _hidden_verificationVariable=0
-  step_count_138dd332_6cfd_4e8b_9793_3d609413df99 = 0.0
-  thread Step_Counter_Thread_d9e35a73_d92f_459b_9e1d_fd764a217231():
+  step_count_5c17e82a_b7e1_41c9_b55e_ca8272e4b4ce = 0.0
+  thread Step_Counter_Thread_adf5c452_c46c_46a7_8b02_4a6c5b43ac81():
     while (True):
-      step_count_138dd332_6cfd_4e8b_9793_3d609413df99 = step_count_138dd332_6cfd_4e8b_9793_3d609413df99 + 1.0
+      step_count_5c17e82a_b7e1_41c9_b55e_ca8272e4b4ce = step_count_5c17e82a_b7e1_41c9_b55e_ca8272e4b4ce + 1.0
       sync()
     end
   end
-  run Step_Counter_Thread_d9e35a73_d92f_459b_9e1d_fd764a217231()
+  run Step_Counter_Thread_adf5c452_c46c_46a7_8b02_4a6c5b43ac81()
   set_safety_mode_transition_hardness(1)
-  set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
-  set_tool_output_mode(0)
-  set_tool_digital_output_mode(0, 1)
-  set_tool_digital_output_mode(1, 1)
-  set_tool_voltage(24)
-  set_target_payload(1.130000, [0.000000, 0.003000, 0.056000], [0.001887, 0.001887, 0.001887, 0.000000, 0.000000, 0.000000])
   set_standard_analog_input_domain(0, 1)
   set_standard_analog_input_domain(1, 1)
   set_tool_analog_input_domain(0, 1)
@@ -22,7 +16,13 @@ def tangram():
   set_analog_outputdomain(0, 0)
   set_analog_outputdomain(1, 0)
   set_input_actions_to_default()
+  set_target_payload(1.130000, [0.000000, 0.003000, 0.056000], [0.001887, 0.001887, 0.001887, 0.000000, 0.000000, 0.000000])
   set_gravity([0.0, 0.0, 9.82])
+  set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
+  set_tool_output_mode(0)
+  set_tool_digital_output_mode(0, 1)
+  set_tool_digital_output_mode(1, 1)
+  set_tool_voltage(24)
   set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   global Point_1=p[0.5673228734564902,-0.15694942793737932,0.5880304365120631,2.355554465134238,0.008459267052315513,-0.015313913082596288]
   global arucoPoS=p[0.14358606805362914,-0.5346312812726187,0.020062451119090552,-0.006999999999967311,-0.0059999999999720876,0.001999999999990575]
@@ -945,47 +945,19 @@ def tangram():
 		end	 
   # end: URCap Installation Node
   global PLOC_Ref=[0.000000,-1.570800,-1.570800,-1.745330,1.570800,1.570800]
-  global PLOC_Ref_1=[0.000000,-1.570800,-1.570800,-1.745330,1.570800,1.570800]
   global PLOC_clear=p[0,0,0,0,0,0]
-  global PLOC_clear_1=p[0,0,0,0,0,0]
   global PLOC_pick=p[0,0,0,0,0,0]
-  global PLOC_pick_1=p[0,0,0,0,0,0]
   global PLOC_prepick=[0,0,0,0,0,0]
-  global PLOC_prepick_1=[0,0,0,0,0,0]
-  global PLOC_total=0
-  global PLOC_total_2=0
-  global PLOC_total_3=0
   global PLOC_total_33=0
   global PLOC_total_34=0
-  global PLOC_total_4=0
   global n_shapes=0
   global Start_p=p[.456474845785, -.121213972691, .087765322809, 2.225040991059, -2.208311442343, -.017870630558]
   global Start_q=[0.02565941959619522, -1.665295263329977, -2.110389471054077, -0.9505583208850403, 1.5772393941879272, 0.019363388419151306]
   $ 2 "BeforeStart"
-  $ 3 "triangle_mid≔l[0]"
-  global triangle_mid=l[0]
-  $ 4 "triangle__s1≔l[1]"
-  global triangle__s1=l[1]
-  $ 5 "triangle_s2≔l[2]"
-  global triangle_s2=l[2]
-  $ 6 "triangle_big1≔l[3]"
-  global triangle_big1=l[3]
-  $ 7 "triangle_big2≔l[4]"
-  global triangle_big2=l[4]
-  $ 8 "square≔l[5]"
-  global square=l[5]
-  $ 9 "parallelogram≔l[6]"
-  global parallelogram=l[6]
-  $ 13 "cam_offset≔p[0,0,-0.025,0,0,1.570]"
-  global cam_offset=p[0,0,-0.025,0,0,1.570]
-  $ 14 "i≔0"
-  global i=0
-  $ 15 "n_shapes≔3"
-  global n_shapes=3
   # begin: URCap Program Node
   #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
   #   Type: Gripper Activate
-  $ 16 "Gripper Activate"
+  $ 3 "Gripper Activate"
   
   rq_set_max_current_for_all_grippers()
   
@@ -996,7 +968,7 @@ def tangram():
   # begin: URCap Program Node
   #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
   #   Type: Gripper
-  $ 17 "Gripper Open (1)"
+  $ 4 "Gripper Open (1)"
   gripper_slave_ids_0 = [9]
   popupErrorGripperWord = "Gripper"
   popupErrorNoConnection1 = "must be connected to run this program."
@@ -1041,17 +1013,65 @@ def tangram():
       rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_0)
   end
   # end: URCap Program Node
-  $ 18 "MoveJ"
-  $ 19 "Start" "breakAfter"
+  $ 5 "l≔make_list(7, 0)"
+  global l=make_list(7, 0)
+  $ 6 "open_socket≔socket_open('192.168.65.168', 8888, 'ur5e_pc')"
+  global open_socket=socket_open("192.168.65.168", 8888, "ur5e_pc")
+  $ 7 "Loop open_socket≟ True "
+  while (open_socket ==   True  ):
+    $ 8 "open_socket≔socket_open('192.168.65.168', 8888, 'ur5e_pc')"
+    global open_socket=socket_open("192.168.65.168", 8888, "ur5e_pc")
+  end
+  $ 9 "recv_i≔0"
+  global recv_i=0
+  $ 10 "Wait: 10.0"
+  sleep(10.0)
+  $ 11 "Loop 7 times"
+  Loop_2 = 0
+  while (Loop_2 < 7):
+    $ 12 "socket_data≔socket_read_ascii_float(7,'ur5e_pc')"
+    global socket_data=socket_read_ascii_float(7,"ur5e_pc")
+    $ 13 "Popup: debug"
+    popup("debug", "Warning", True, False, blocking=True)
+    $ 14 "l≔l.append([socket_data[1], socket_data[2], socket_data[3],socket_data[4],socket_data[5],socket_data[6], socket_data[7]])"
+    global l=l.append([socket_data[1], socket_data[2], socket_data[3],socket_data[4],socket_data[5],socket_data[6], socket_data[7]])
+    $ 15 "recv_i≔recv_i+1"
+    global recv_i=recv_i+1
+    Loop_2 = Loop_2 + 1
+  end
+  $ 16 "Popup: debug"
+  popup("debug", "Warning", True, False, blocking=True)
+  $ 18 "triangle_mid≔p[l[0],l[1],l[2],l[3],l[4],l[5]]"
+  global triangle_mid=p[l[0],l[1],l[2],l[3],l[4],l[5]]
+  $ 19 "triangle__s1≔p[l[6],l[7],l[8],l[9],l[10],l[11]]"
+  global triangle__s1=p[l[6],l[7],l[8],l[9],l[10],l[11]]
+  $ 20 "triangle_s2≔p[l[12],l[13],l[14],l[15],l[16],l[17]]"
+  global triangle_s2=p[l[12],l[13],l[14],l[15],l[16],l[17]]
+  $ 21 "triangle_big1≔p[l[18],l[19],l[20],l[21],l[22],l[23]]"
+  global triangle_big1=p[l[18],l[19],l[20],l[21],l[22],l[23]]
+  $ 22 "triangle_big2≔p[l[24],l[25],l[26],l[27],l[28],l[29]]"
+  global triangle_big2=p[l[24],l[25],l[26],l[27],l[28],l[29]]
+  $ 23 "square≔p[l[30],l[31],l[32],l[33],l[34],l[35]]"
+  global square=p[l[30],l[31],l[32],l[33],l[34],l[35]]
+  $ 24 "parallelogram≔p[l[36],l[37],l[38],l[39],l[40],l[41]]"
+  global parallelogram=p[l[36],l[37],l[38],l[39],l[40],l[41]]
+  $ 25 "cam_offset≔p[0,0,-0.025,0,0,1.570]"
+  global cam_offset=p[0,0,-0.025,0,0,1.570]
+  $ 26 "i≔0"
+  global i=0
+  $ 27 "n_shapes≔3"
+  global n_shapes=3
+  $ 28 "MoveJ"
+  $ 29 "Start" "breakAfter"
   set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-  $ 20 "Robot Program"
-  $ 21 "Loop i < n_shapes"
+  $ 30 "Robot Program"
+  $ 31 "Loop i < n_shapes"
   while (i < n_shapes):
     # begin: URCap Program Node
     #   Source: PART LOCALIZATION WITH SICK PLOC2D, 3.0.0.100, SICK AG - Developed by Nimalendiran Kailasanathan
     #   Type: PLOC2D
-    $ 23 "PLOC2D"
+    $ 33 "PLOC2D"
     activeTCP =p[0.0,0.0,0.165,0.0,0.0,0.0]
     PLOC_Ref=[0.642090,-1.790640,-2.202800,-0.733020,1.577610,0.627860]
     PLOC2D_STATUS = "Job(s) not located."
@@ -1174,31 +1194,31 @@ PLOC_clear=PLOC2D_corrClearPose
 		sync() 
 		end 
     DISCONNECT_To_PLOC()
-    $ 24 "Folder" "noBreak"
-    $ 25 "Pick and Place" "noBreak"
-    $ 26 "Start" "noBreak"
-    $ 27 "'Set start position and open gripper'" "noBreak"
+    $ 34 "Folder" "noBreak"
+    $ 35 "Pick and Place" "noBreak"
+    $ 36 "Start" "noBreak"
+    $ 37 "'Set start position and open gripper'" "noBreak"
     # 'Set start position and open gripper'
-    $ 28 "MoveJ" "noBreak"
-    $ 29 "Start" "noBreak"
+    $ 38 "MoveJ" "noBreak"
+    $ 39 "Start" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-    $ 32 "Approach" "noBreak"
-    $ 33 "MoveJ" "noBreak"
-    $ 34 "PLOC_prepick" "noBreak"
+    $ 42 "Approach" "noBreak"
+    $ 43 "MoveJ" "noBreak"
+    $ 44 "PLOC_prepick" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movej(PLOC_prepick, a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-    $ 35 "Pick" "noBreak"
-    $ 36 "PLOC_pick≔pose_add(PLOC_pick,cam_offset)" "noBreak"
+    $ 45 "Pick" "noBreak"
+    $ 46 "PLOC_pick≔pose_add(PLOC_pick,cam_offset)" "noBreak"
     global PLOC_pick=pose_add(PLOC_pick,cam_offset)
-    $ 37 "MoveL" "noBreak"
-    $ 38 "PLOC_pick" "noBreak"
+    $ 47 "MoveL" "noBreak"
+    $ 48 "PLOC_pick" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movel(PLOC_pick, a=1.2, v=0.25)
     # begin: URCap Program Node
     #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
     #   Type: Gripper
-    $ 40 "Gripper Close (1)" "noBreak"
+    $ 50 "Gripper Close (1)" "noBreak"
     gripper_slave_ids_1 = [9]
     popupErrorGripperWord = "Gripper"
     popupErrorNoConnection1 = "must be connected to run this program."
@@ -1243,108 +1263,53 @@ PLOC_clear=PLOC2D_corrClearPose
         rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_1)
     end
     # end: URCap Program Node
-    $ 41 "Clear" "noBreak"
-    $ 42 "'Close gripper'" "noBreak"
+    $ 51 "Clear" "noBreak"
+    $ 52 "'Close gripper'" "noBreak"
     # 'Close gripper'
-    $ 43 "MoveL" "noBreak"
-    $ 44 "PLOC_clear" "noBreak"
+    $ 53 "MoveL" "noBreak"
+    $ 54 "PLOC_clear" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movel(PLOC_clear, a=1.2, v=0.25, r=0.01)
-    $ 45 "Place" "noBreak"
-    $ 46 "'Set drop position and open gripper'" "noBreak"
+    $ 55 "Place" "noBreak"
+    $ 56 "'Set drop position and open gripper'" "noBreak"
     # 'Set drop position and open gripper'
-    $ 47 "shitrobot≔PLOC2D_JOB_ID" "noBreak"
+    $ 57 "shitrobot≔PLOC2D_JOB_ID" "noBreak"
     global shitrobot=PLOC2D_JOB_ID
-    $ 49 "If shitrobot ≟ 1" "noBreak"
+    $ 59 "If shitrobot ≟ 1" "noBreak"
     if (shitrobot  ==  1):
-      $ 50 "Popup" "noBreak"
+      $ 60 "Popup" "noBreak"
       popup(str_cat("",triangle_mid), "Message", False, False, blocking=True)
-      $ 51 "MoveL" "noBreak"
-      $ 52 "triangle_mid" "noBreak"
+      $ 61 "MoveL" "noBreak"
+      $ 62 "triangle_mid" "noBreak"
       movel(triangle_mid, a=1.2, v=0.25)
     else:
-      $ 53 "ElseIf shitrobot ≟ 2" "noBreak"
+      $ 63 "ElseIf shitrobot ≟ 2" "noBreak"
       if (shitrobot  ==  2):
-        $ 54 "MoveJ" "noBreak"
-        $ 55 "triangle__s1" "noBreak"
+        $ 64 "MoveJ" "noBreak"
+        $ 65 "triangle__s1" "noBreak"
         movej(triangle__s1, a=1.3962634015954636, v=1.0471975511965976)
       else:
-        $ 56 "ElseIf shitrobot ≟ 3" "noBreak"
+        $ 66 "ElseIf shitrobot ≟ 3" "noBreak"
         if (shitrobot  ==  3):
-          $ 57 "MoveJ" "noBreak"
-          $ 58 "triangle_big1" "noBreak"
+          $ 67 "MoveJ" "noBreak"
+          $ 68 "triangle_big1" "noBreak"
           movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
         else:
-          $ 59 "ElseIf shitrobot ≟ 4" "noBreak"
+          $ 69 "ElseIf shitrobot ≟ 4" "noBreak"
           if (shitrobot  ==  4):
-            $ 60 "MoveJ" "noBreak"
-            $ 61 "square" "noBreak"
+            $ 70 "MoveJ" "noBreak"
+            $ 71 "square" "noBreak"
             movej(square, a=1.3962634015954636, v=1.0471975511965976)
-          else:
-            $ 62 "ElseIf shitrobot ≟ 5" "noBreak"
-            if (shitrobot  ==  5):
-              $ 63 "MoveJ" "noBreak"
-              $ 64 "parallelogram" "noBreak"
-              movej(parallelogram, a=1.3962634015954636, v=1.0471975511965976)
-            end
           end
         end
       end
     end
-    # begin: URCap Program Node
-    #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
-    #   Type: Gripper
-    $ 65 "Gripper Open (1)" "noBreak"
-    gripper_slave_ids_2 = [9]
-    popupErrorGripperWord = "Gripper"
-    popupErrorNoConnection1 = "must be connected to run this program."
-    popupErrorNoConnection2 = "No connection"
-    popupErrorNotActivated1 = "is not activated. Go to Installation tab > Gripper to activate it and run the program again."
-    popupErrorNotActivated2 = "Not activated"
-    rq_gripper_speed = 100.0
-    rq_gripper_force = 100.0
-    rq_gripper_position = 0.0
-    rq_is_blocking = True
-    rq_is_robot_compliant = False
-    nb_slave_ids = get_list_length(gripper_slave_ids_2)
-    rq_wait_for_gripper_reconnection()
-    index = 0
-    while (index < nb_slave_ids):
-        if (not rq_is_gripper_connected(gripper_slave_ids_2[index])):
-            write_error_popup(index, popupErrorGripperWord, popupErrorNoConnection1, popupErrorNoConnection2)
-        end
-        index = index + 1
-    end
-    index = 0
-    while (index < nb_slave_ids):
-        if (not rq_is_gripper_activated(gripper_slave_ids_2[index])):
-            write_error_popup(index, popupErrorGripperWord, popupErrorNotActivated1, popupErrorNotActivated2)
-        end
-        index = index + 1
-    end
-    rq_set_speed_norm_multi_grippers(rq_gripper_speed, gripper_slave_ids_2)
-    rq_set_force_norm_multi_grippers(rq_gripper_force, gripper_slave_ids_2)
-    if (rq_is_blocking):
-        if rq_is_robot_compliant:
-            zero_ftsensor()
-            sleep(0.02)
-            # Maximum allowed deviation values for non-compliant axes are default values generated by UR in a Force node
-            force_mode(tool_pose(), [1, 1, 0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 2, [0.15, 0.15, 0.1, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
-        end
-        rq_move_and_wait_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_2)
-        if rq_is_robot_compliant:
-            end_force_mode()
-        end
-    else:
-        rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_2)
-    end
     # end: URCap Program Node
-    # end: URCap Program Node
-    $ 66 "i≔i+1"
+    $ 72 "i≔i+1"
     global i=i+1
   end
-  $ 67 "MoveJ"
-  $ 68 "Start" "breakAfter"
+  $ 73 "MoveJ"
+  $ 74 "Start" "breakAfter"
   set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
 end

@@ -4,7 +4,7 @@ import pygame
 # Configuration file for constants and settings
 
 # IP Address
-ip_address = "192.168.65.190"
+ip_address = "192.168.65.168"
 trgt_port = 8888
 
 # Placing coordinates
@@ -12,8 +12,15 @@ LOWER_COORD = (284, -350) #x, y
 HIGHER_COORD = (544, 25) #x, y for the robot
 TZ = 50 #mm
 RX = 3.12 #rad
-RY = 0 #rad
+RY = -0.386 #rad
 RZ = 0 #rad
+SHAPE_0 = [str(0).encode('ascii'), 
+			str(0).encode('ascii'), 
+			str(TZ).encode('ascii'), 
+			str(RX).encode('ascii'), 
+			str(RY).encode('ascii'), 
+			str(RZ).encode('ascii')]
+
 
 # Screen dimensions
 MENU_HEIGHT = 50
