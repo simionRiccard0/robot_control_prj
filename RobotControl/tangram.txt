@@ -4,9 +4,9 @@
      Gripper Activate
      Gripper Open (1)
      l≔make_list(42, 0)
-     open_socket≔socket_open("192.168.65.167", 8888, "ur5e_pc")
-     Loop open_socket≟ True 
-       open_socket≔socket_open("192.168.65.167", 8888, "ur5e_pc")
+     open_socket≔socket_open("192.168.65.164", 8888, "ur5e_pc")
+     Loop open_socket≟ False 
+       open_socket≔socket_open("192.168.65.164", 8888, "ur5e_pc")
      recv_i≔0
      is_receiving≔ False 
      Loop is_receiving≟ False 
@@ -14,15 +14,16 @@
        If socket_data[0]≠0
          is_receiving≔ True 
        Wait: 0.01
+     i≔0
      Loop 7 times
        socket_data≔socket_read_ascii_float(6,"ur5e_pc")
        Loop 6 times
-         l[i]=socket_data[i]
+         l[i]=socket_data[recv_i+1]
          i≔i+1
-       Popup: debug
+         i≔recv_i+1
        'l≔l.append([socket_data[1], socket_data[2], socket_data[3],socket_data[4],socket_data[5],socket_data[6], socket_data[7]])'
        'l.append([socket_data[1], socket_data[2], socket_data[3], socket_data[4], socket_data[5], socket_data[6]])'
-       recv_i≔recv_i+1
+       recv_i≔0
      Popup: debug
      'l≔socket_data'
      triangle_mid≔p[l[0],l[1],l[2],l[3],l[4],l[5]]
