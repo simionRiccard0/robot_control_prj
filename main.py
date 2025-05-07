@@ -84,15 +84,17 @@ def export_layout():
 		elif p.shape_type == "parallelogram":
 			layout[6] = piece_to_pose(p.center, p.angle)
 	print("Tangram Layout:")
-	print(layout)
-	ur.send_data(layout)
-	'''
-	while True:
+	ACK = False
+	for item in layout:
+		while ACK != True:
+			recv_ack = ur.recv_data()
 
-		for item in layout:
-			print(item)
-			ur.send_data(item)
-	'''
+			if recv_ack == "ACK":
+				ACK = True
+			time.sleep(0.01)
+		ACK = False
+		print("Sending item : ", item)
+		ur.send_data(item)
 
 def undo():
 	if cfg.undo_stack:

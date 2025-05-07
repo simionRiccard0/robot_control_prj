@@ -18,17 +18,15 @@ Tips :
 
 1. Pick&Place :
 	a. Clean the PICK_total variables not in use
-	b. Implement in the "place" phase the corresponding wanted position
 2. TCP Connection :
-	a. Test the new connection, correct the protocol python-side
+	a. Put in place an ACK system
+	b. Launch the data stream when a first ACK is received
+	c. ACK after every pieces
 
 3. Tangram:
-	a. Integration of a transformation operation between pygame plane and camera/robot plane
-	b. "Export" should retrieve positioning data first, then send transformed data
+
 4. Robot :
-	a. Implement either in the pre-program or before the loop a wait loop for tangram coordinates.
-	b. Implement a refusal protocol as to when a new tangram is pushed directly during one placing with old coordinates.
-	c. Implement a matching system between recognized CLOP elements and wanted elements, preferably by the robot.
+
 
 
 ## Contributors
