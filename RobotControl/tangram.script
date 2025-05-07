@@ -1013,65 +1013,84 @@ def tangram():
       rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_0)
   end
   # end: URCap Program Node
-  $ 5 "l≔make_list(7, 0)"
-  global l=make_list(7, 0)
-  $ 6 "open_socket≔socket_open('192.168.65.168', 8888, 'ur5e_pc')"
-  global open_socket=socket_open("192.168.65.168", 8888, "ur5e_pc")
+  $ 5 "l≔make_list(42, 0)"
+  global l=make_list(42, 0)
+  $ 6 "open_socket≔socket_open('192.168.65.167', 8888, 'ur5e_pc')"
+  global open_socket=socket_open("192.168.65.167", 8888, "ur5e_pc")
   $ 7 "Loop open_socket≟ True "
   while (open_socket ==   True  ):
-    $ 8 "open_socket≔socket_open('192.168.65.168', 8888, 'ur5e_pc')"
-    global open_socket=socket_open("192.168.65.168", 8888, "ur5e_pc")
+    $ 8 "open_socket≔socket_open('192.168.65.167', 8888, 'ur5e_pc')"
+    global open_socket=socket_open("192.168.65.167", 8888, "ur5e_pc")
   end
   $ 9 "recv_i≔0"
   global recv_i=0
-  $ 10 "Wait: 10.0"
-  sleep(10.0)
-  $ 11 "Loop 7 times"
+  $ 10 "is_receiving≔ False "
+  global is_receiving=  False  
+  $ 11 "Loop is_receiving≟ False "
+  while (is_receiving ==   False  ):
+    $ 12 "socket_data≔socket_read_ascii_float(6,'ur5e_pc')"
+    global socket_data=socket_read_ascii_float(6,"ur5e_pc")
+    $ 13 "If socket_data[0]≠0"
+    if (socket_data[0] != 0):
+      $ 14 "is_receiving≔ True "
+      global is_receiving=  True  
+    end
+    $ 15 "Wait: 0.01"
+    sleep(0.01)
+  end
+  $ 16 "Loop 7 times"
   Loop_2 = 0
   while (Loop_2 < 7):
-    $ 12 "socket_data≔socket_read_ascii_float(7,'ur5e_pc')"
-    global socket_data=socket_read_ascii_float(7,"ur5e_pc")
-    $ 13 "Popup: debug"
+    $ 17 "socket_data≔socket_read_ascii_float(6,'ur5e_pc')"
+    global socket_data=socket_read_ascii_float(6,"ur5e_pc")
+    $ 18 "Loop 6 times"
+    Loop_4 = 0
+    while (Loop_4 < 6):
+      $ 19 "l[i]=socket_data[i]"
+      l[i]=socket_data[i]
+      $ 20 "i≔i+1"
+      global i=i+1
+      Loop_4 = Loop_4 + 1
+    end
+    $ 21 "Popup: debug"
     popup("debug", "Warning", True, False, blocking=True)
-    $ 14 "l≔l.append([socket_data[1], socket_data[2], socket_data[3],socket_data[4],socket_data[5],socket_data[6], socket_data[7]])"
-    global l=l.append([socket_data[1], socket_data[2], socket_data[3],socket_data[4],socket_data[5],socket_data[6], socket_data[7]])
-    $ 15 "recv_i≔recv_i+1"
+    $ 24 "recv_i≔recv_i+1"
     global recv_i=recv_i+1
     Loop_2 = Loop_2 + 1
   end
-  $ 16 "Popup: debug"
+  $ 25 "Popup: debug"
   popup("debug", "Warning", True, False, blocking=True)
-  $ 18 "triangle_mid≔p[l[0],l[1],l[2],l[3],l[4],l[5]]"
+  $ 27 "triangle_mid≔p[l[0],l[1],l[2],l[3],l[4],l[5]]"
   global triangle_mid=p[l[0],l[1],l[2],l[3],l[4],l[5]]
-  $ 19 "triangle__s1≔p[l[6],l[7],l[8],l[9],l[10],l[11]]"
+  $ 28 "triangle__s1≔p[l[6],l[7],l[8],l[9],l[10],l[11]]"
   global triangle__s1=p[l[6],l[7],l[8],l[9],l[10],l[11]]
-  $ 20 "triangle_s2≔p[l[12],l[13],l[14],l[15],l[16],l[17]]"
+  $ 29 "triangle_s2≔p[l[12],l[13],l[14],l[15],l[16],l[17]]"
   global triangle_s2=p[l[12],l[13],l[14],l[15],l[16],l[17]]
-  $ 21 "triangle_big1≔p[l[18],l[19],l[20],l[21],l[22],l[23]]"
+  $ 30 "triangle_big1≔p[l[18],l[19],l[20],l[21],l[22],l[23]]"
   global triangle_big1=p[l[18],l[19],l[20],l[21],l[22],l[23]]
-  $ 22 "triangle_big2≔p[l[24],l[25],l[26],l[27],l[28],l[29]]"
+  $ 31 "triangle_big2≔p[l[24],l[25],l[26],l[27],l[28],l[29]]"
   global triangle_big2=p[l[24],l[25],l[26],l[27],l[28],l[29]]
-  $ 23 "square≔p[l[30],l[31],l[32],l[33],l[34],l[35]]"
+  $ 32 "square≔p[l[30],l[31],l[32],l[33],l[34],l[35]]"
   global square=p[l[30],l[31],l[32],l[33],l[34],l[35]]
-  $ 24 "parallelogram≔p[l[36],l[37],l[38],l[39],l[40],l[41]]"
+  $ 33 "parallelogram≔p[l[36],l[37],l[38],l[39],l[40],l[41]]"
   global parallelogram=p[l[36],l[37],l[38],l[39],l[40],l[41]]
-  $ 25 "cam_offset≔p[0,0,-0.025,0,0,1.570]"
+  $ 34 "cam_offset≔p[0,0,-0.025,0,0,1.570]"
   global cam_offset=p[0,0,-0.025,0,0,1.570]
-  $ 26 "i≔0"
+  $ 35 "i≔0"
   global i=0
-  $ 27 "n_shapes≔3"
+  $ 36 "n_shapes≔3"
   global n_shapes=3
-  $ 28 "MoveJ"
-  $ 29 "Start" "breakAfter"
+  $ 37 "MoveJ"
+  $ 38 "Start" "breakAfter"
   set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-  $ 30 "Robot Program"
-  $ 31 "Loop i < n_shapes"
+  $ 39 "Robot Program"
+  $ 40 "Loop i < n_shapes"
   while (i < n_shapes):
     # begin: URCap Program Node
     #   Source: PART LOCALIZATION WITH SICK PLOC2D, 3.0.0.100, SICK AG - Developed by Nimalendiran Kailasanathan
     #   Type: PLOC2D
-    $ 33 "PLOC2D"
+    $ 42 "PLOC2D"
     activeTCP =p[0.0,0.0,0.165,0.0,0.0,0.0]
     PLOC_Ref=[0.642090,-1.790640,-2.202800,-0.733020,1.577610,0.627860]
     PLOC2D_STATUS = "Job(s) not located."
@@ -1194,31 +1213,31 @@ PLOC_clear=PLOC2D_corrClearPose
 		sync() 
 		end 
     DISCONNECT_To_PLOC()
-    $ 34 "Folder" "noBreak"
-    $ 35 "Pick and Place" "noBreak"
-    $ 36 "Start" "noBreak"
-    $ 37 "'Set start position and open gripper'" "noBreak"
+    $ 43 "Folder" "noBreak"
+    $ 44 "Pick and Place" "noBreak"
+    $ 45 "Start" "noBreak"
+    $ 46 "'Set start position and open gripper'" "noBreak"
     # 'Set start position and open gripper'
-    $ 38 "MoveJ" "noBreak"
-    $ 39 "Start" "noBreak"
+    $ 47 "MoveJ" "noBreak"
+    $ 48 "Start" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-    $ 42 "Approach" "noBreak"
-    $ 43 "MoveJ" "noBreak"
-    $ 44 "PLOC_prepick" "noBreak"
+    $ 51 "Approach" "noBreak"
+    $ 52 "MoveJ" "noBreak"
+    $ 53 "PLOC_prepick" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movej(PLOC_prepick, a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-    $ 45 "Pick" "noBreak"
-    $ 46 "PLOC_pick≔pose_add(PLOC_pick,cam_offset)" "noBreak"
+    $ 54 "Pick" "noBreak"
+    $ 55 "PLOC_pick≔pose_add(PLOC_pick,cam_offset)" "noBreak"
     global PLOC_pick=pose_add(PLOC_pick,cam_offset)
-    $ 47 "MoveL" "noBreak"
-    $ 48 "PLOC_pick" "noBreak"
+    $ 56 "MoveL" "noBreak"
+    $ 57 "PLOC_pick" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movel(PLOC_pick, a=1.2, v=0.25)
     # begin: URCap Program Node
     #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
     #   Type: Gripper
-    $ 50 "Gripper Close (1)" "noBreak"
+    $ 59 "Gripper Close (1)" "noBreak"
     gripper_slave_ids_1 = [9]
     popupErrorGripperWord = "Gripper"
     popupErrorNoConnection1 = "must be connected to run this program."
@@ -1263,53 +1282,53 @@ PLOC_clear=PLOC2D_corrClearPose
         rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_1)
     end
     # end: URCap Program Node
-    $ 51 "Clear" "noBreak"
-    $ 52 "'Close gripper'" "noBreak"
+    $ 60 "Clear" "noBreak"
+    $ 61 "'Close gripper'" "noBreak"
     # 'Close gripper'
-    $ 53 "MoveL" "noBreak"
-    $ 54 "PLOC_clear" "noBreak"
+    $ 62 "MoveL" "noBreak"
+    $ 63 "PLOC_clear" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movel(PLOC_clear, a=1.2, v=0.25, r=0.01)
-    $ 55 "Place" "noBreak"
-    $ 56 "'Set drop position and open gripper'" "noBreak"
+    $ 64 "Place" "noBreak"
+    $ 65 "'Set drop position and open gripper'" "noBreak"
     # 'Set drop position and open gripper'
-    $ 57 "shitrobot≔PLOC2D_JOB_ID" "noBreak"
+    $ 66 "shitrobot≔PLOC2D_JOB_ID" "noBreak"
     global shitrobot=PLOC2D_JOB_ID
-    $ 59 "If shitrobot ≟ 1" "noBreak"
+    $ 68 "If shitrobot ≟ 1" "noBreak"
     if (shitrobot  ==  1):
-      $ 60 "Popup" "noBreak"
+      $ 69 "Popup" "noBreak"
       popup(str_cat("",triangle_mid), "Message", False, False, blocking=True)
-      $ 61 "MoveL" "noBreak"
-      $ 62 "triangle_mid" "noBreak"
+      $ 70 "MoveL" "noBreak"
+      $ 71 "triangle_mid" "noBreak"
       movel(triangle_mid, a=1.2, v=0.25)
     else:
-      $ 63 "ElseIf shitrobot ≟ 2" "noBreak"
+      $ 72 "ElseIf shitrobot ≟ 2" "noBreak"
       if (shitrobot  ==  2):
-        $ 64 "MoveJ" "noBreak"
-        $ 65 "triangle__s1" "noBreak"
+        $ 73 "MoveJ" "noBreak"
+        $ 74 "triangle__s1" "noBreak"
         movej(triangle__s1, a=1.3962634015954636, v=1.0471975511965976)
       else:
-        $ 66 "ElseIf shitrobot ≟ 3" "noBreak"
+        $ 75 "ElseIf shitrobot ≟ 3" "noBreak"
         if (shitrobot  ==  3):
-          $ 67 "MoveJ" "noBreak"
-          $ 68 "triangle_big1" "noBreak"
+          $ 76 "MoveJ" "noBreak"
+          $ 77 "triangle_big1" "noBreak"
           movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
         else:
-          $ 69 "ElseIf shitrobot ≟ 4" "noBreak"
+          $ 78 "ElseIf shitrobot ≟ 4" "noBreak"
           if (shitrobot  ==  4):
-            $ 70 "MoveJ" "noBreak"
-            $ 71 "square" "noBreak"
+            $ 79 "MoveJ" "noBreak"
+            $ 80 "square" "noBreak"
             movej(square, a=1.3962634015954636, v=1.0471975511965976)
           end
         end
       end
     end
     # end: URCap Program Node
-    $ 72 "i≔i+1"
+    $ 81 "i≔i+1"
     global i=i+1
   end
-  $ 73 "MoveJ"
-  $ 74 "Start" "breakAfter"
+  $ 82 "MoveJ"
+  $ 83 "Start" "breakAfter"
   set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
 end
