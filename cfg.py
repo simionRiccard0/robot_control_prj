@@ -14,12 +14,12 @@ TZ = 50 #mm
 RX = 3.12 #rad
 RY = -0.386 #rad
 RZ = 0 #rad
-SHAPE_0 = [str(0).encode('ascii'), 
-			str(0).encode('ascii'), 
-			str(TZ).encode('ascii'), 
-			str(RX).encode('ascii'), 
-			str(RY).encode('ascii'), 
-			str(RZ).encode('ascii')]
+SHAPE_0 = [1, 
+			1, 
+			TZ, 
+			RX, 
+			RY, 
+			RZ]
 
 
 # Screen dimensions

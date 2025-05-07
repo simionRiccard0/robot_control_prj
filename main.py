@@ -20,12 +20,12 @@ def snap_to_nearest(piece):
 def piece_to_pose(center, angle):
 	# data send = [piece type, piece pose]
 	#piece pose : [x, y, z, rx, ry, rz]
-	tmp_p =[str(round(center[0]*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[0], 3)).encode('ascii'), 
-			str(round((center[1]- cfg.MENU_HEIGHT)*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[1], 3)).encode('ascii'), 
-			str(cfg.TZ).encode('ascii'), 
-			str(cfg.RX).encode('ascii'), 
-			str(cfg.RY).encode('ascii'), 
-			str(angle - cfg.RZ).encode('ascii')]
+	tmp_p =[round(center[0]*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[0], 3), 
+			round((center[1]- cfg.MENU_HEIGHT)*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[1], 3), 
+			cfg.TZ, 
+			cfg.RX, 
+			cfg.RY, 
+			angle - cfg.RZ]
 	return tmp_p
 
 def fetch_total_counts(data_dict):
@@ -84,11 +84,15 @@ def export_layout():
 		elif p.shape_type == "parallelogram":
 			layout[6] = piece_to_pose(p.center, p.angle)
 	print("Tangram Layout:")
-	#print(layout)
-	#ur.send_data(layout)
-	for item in layout:
-		print(item)
-		ur.send_data(item)
+	print(layout)
+	ur.send_data(layout)
+	'''
+	while True:
+
+		for item in layout:
+			print(item)
+			ur.send_data(item)
+	'''
 
 def undo():
 	if cfg.undo_stack:
