@@ -4,36 +4,45 @@
      Gripper Activate
      Gripper Open (1)
      l≔make_list(42, 0)
-     open_socket≔socket_open("192.168.65.164", 8888, "ur5e_pc")
+     open_socket≔socket_open("192.168.65.184", 8888, "ur5e_pc")
      Loop open_socket≟ False 
-       open_socket≔socket_open("192.168.65.164", 8888, "ur5e_pc")
+       open_socket≔socket_open("192.168.65.184", 8888, "ur5e_pc")
      recv_i≔0
-     is_receiving≔ False 
-     Loop is_receiving≟ False 
-       socket_data≔socket_read_ascii_float(6,"ur5e_pc")
-       If socket_data[0]≠0
-         is_receiving≔ True 
-       Wait: 0.01
+     placing_offset≔p[0,0,-0.02,0,0,0]
      i≔0
+     str_ack≔""
+     is_receiving≔ False 
+     'Loop is_receiving≟ False '
      Loop 7 times
+       Loop str_ack≠"ACK"
+         str_ack≔socket_read_string("ur5e_pc")
+         Wait: 0.01
        socket_data≔socket_read_ascii_float(6,"ur5e_pc")
-       Loop 6 times
+       Loop socket_data[0]≠6
+         socket_data≔socket_read_ascii_float(6,"ur5e_pc")
+         Wait: 0.1
+       Loop recv_i<6
          l[i]=socket_data[recv_i+1]
          i≔i+1
-         i≔recv_i+1
+         recv_i≔recv_i+1
+         'square≔[socket_data.slice(1, 6)]'
        'l≔l.append([socket_data[1], socket_data[2], socket_data[3],socket_data[4],socket_data[5],socket_data[6], socket_data[7]])'
        'l.append([socket_data[1], socket_data[2], socket_data[3], socket_data[4], socket_data[5], socket_data[6]])'
        recv_i≔0
-     Popup: debug
+       ack_send≔socket_send_string("ACK","ur5e_pc")
+       Loop ack_send≟ False 
+         ack_send≔socket_send_string("ACK","ur5e_pc")
+         Wait: 0.01
+     'Popup: debug'
      'l≔socket_data'
      triangle_mid≔p[l[0],l[1],l[2],l[3],l[4],l[5]]
-     triangle__s1≔p[l[6],l[7],l[8],l[9],l[10],l[11]]
+     triangle_s1≔p[l[6],l[7],l[8],l[9],l[10],l[11]]
      triangle_s2≔p[l[12],l[13],l[14],l[15],l[16],l[17]]
      triangle_big1≔p[l[18],l[19],l[20],l[21],l[22],l[23]]
      triangle_big2≔p[l[24],l[25],l[26],l[27],l[28],l[29]]
      square≔p[l[30],l[31],l[32],l[33],l[34],l[35]]
      parallelogram≔p[l[36],l[37],l[38],l[39],l[40],l[41]]
-     cam_offset≔p[0,0,-0.025,0,0,1.570]
+     cam_offset≔p[0.02,0,-0.025,0,0,1.570]
      i≔0
      n_shapes≔3
      MoveJ
@@ -69,17 +78,33 @@
                'Popup'
                If shitrobot ≟ 1
                  Popup
-                 MoveL
+                 MoveJ
                    triangle_mid
+                   triangle_mid≔pose_add(triangle_mid, placing_offset)
+                 MoveJ
+                   triangle_mid
+                   Gripper Open (1)
                ElseIf shitrobot ≟ 2
                  MoveJ
-                   triangle__s1
+                   triangle_s1
+                   triangle_s1≔pose_add(triangle_s1, placing_offset)
+                 MoveJ
+                   triangle_s1
+                   Gripper Open (1)
                ElseIf shitrobot ≟ 3
                  MoveJ
                    triangle_big1
+                   triangle_big1≔pose_add(triangle_big1, placing_offset)
+                 MoveJ
+                   triangle_big1
+                   Gripper Open (1)
                ElseIf shitrobot ≟ 4
                  MoveJ
                    square
+                   square≔pose_add(square, placing_offset)
+                 MoveJ
+                   square
+                   Gripper Open (1)
        i≔i+1
      MoveJ
        Start

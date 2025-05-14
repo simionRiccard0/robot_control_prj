@@ -34,7 +34,18 @@ def safe_eval(expression):
 def send_data(data):
 	if data is not None and cfg.snd_q is not None:
 		try:
-			cfg.snd_q.put(data, timeout = 1)
+			tmp_cnt = str(data) #Quick & dirty string conversion
+			binStr = tmp_cnt.encode('ascii')
+			cfg.snd_q.put(binStr, timeout = 1)
+		except cfg.snd_q.timeout:
+			print("Data Queue failed")
+
+def send_string(str_data):
+	if str_data is not None and cfg.snd_q is not None:
+		try:
+			#tmp_cnt = str(data) #Quick & dirty string conversion
+			binStr = str_data.encode('ascii')
+			cfg.snd_q.put(binStr, timeout = 1)
 		except cfg.snd_q.timeout:
 			print("Data Queue failed")
 
@@ -57,9 +68,7 @@ def send_lp(host, port):
 			for i in range(cfg.snd_q.qsize()):
 				try:
 					data = cfg.snd_q.get() #One element at the time
-					tmp_cnt = str(data) #Quick & dirty string conversion
-					binStr = tmp_cnt.encode('ascii')
-					host.sendall(binStr)
+					host.sendall(data)
 				except Exception as e:
 					print(e)
 		else:

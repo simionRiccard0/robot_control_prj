@@ -4,18 +4,18 @@ import pygame
 # Configuration file for constants and settings
 
 # IP Address
-ip_address = "192.168.65.164"
+ip_address = "192.168.65.184"
 trgt_port = 8888
 
 # Placing coordinates
 LOWER_COORD = (284, -350) #x, y
 HIGHER_COORD = (544, 25) #x, y for the robot
-TZ = 50 #mm
-RX = 3.12 #rad
-RY = -0.386 #rad
+TZ = 0.05 #mm
+RX = 2.1 #rad
+RY = -2.3 #rad
 RZ = 0 #rad
-SHAPE_0 = [1, 
-			1, 
+SHAPE_0 = [0.3, 
+			0.025, 
 			TZ, 
 			RX, 
 			RY, 

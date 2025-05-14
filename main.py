@@ -4,6 +4,7 @@ import cfg
 from shapes import Shape, extract_counts
 import ur_comm as ur
 import threading
+import time
 
 def snap_to_nearest(piece):
 	for other_piece in cfg.pieces:
@@ -20,12 +21,14 @@ def snap_to_nearest(piece):
 def piece_to_pose(center, angle):
 	# data send = [piece type, piece pose]
 	#piece pose : [x, y, z, rx, ry, rz]
-	tmp_p =[round(center[0]*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[0], 3), 
-			round((center[1]- cfg.MENU_HEIGHT)*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[1], 3), 
+	print("X =", center[1], cfg.LOWER_COORD[0])
+	print("Y =", center[0], cfg.LOWER_COORD[1])
+	tmp_p =[round((center[1]*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[0])/10e2, 3), 
+			round(((center[0]- cfg.MENU_HEIGHT)*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[1])/10e2, 3), 
 			cfg.TZ, 
-			cfg.RX, 
-			cfg.RY, 
-			angle - cfg.RZ]
+			(-1)*(1.57+angle*0.0174), 
+			(1.57+angle*0.0174), 
+			cfg.RZ]
 	return tmp_p
 
 def fetch_total_counts(data_dict):
@@ -85,16 +88,24 @@ def export_layout():
 			layout[6] = piece_to_pose(p.center, p.angle)
 	print("Tangram Layout:")
 	ACK = False
+	ur.send_string("ACK")
+	time.sleep(0.01)
 	for item in layout:
+		print("New Loop")
+		
+		print("Sending item : ", item)
+		ur.send_data(item)
+		time.sleep(0.1)
+		'''
 		while ACK != True:
 			recv_ack = ur.recv_data()
 
 			if recv_ack == "ACK":
 				ACK = True
+				print("Received ACK")
 			time.sleep(0.01)
 		ACK = False
-		print("Sending item : ", item)
-		ur.send_data(item)
+		'''
 
 def undo():
 	if cfg.undo_stack:
