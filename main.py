@@ -26,9 +26,9 @@ def piece_to_pose(center, angle):
 	tmp_p =[round((center[1]*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[0])/10e2, 3), 
 			round(((center[0]- cfg.MENU_HEIGHT)*cfg.MM_PIX_RATIO + cfg.LOWER_COORD[1])/10e2, 3), 
 			cfg.TZ, 
-			(-1)*(1.57+angle*0.0174), 
-			(1.57+angle*0.0174), 
-			cfg.RZ]
+			cfg.RX,
+			cfg.RY, 
+			angle - cfg.RZ]
 	return tmp_p
 
 def fetch_total_counts(data_dict):
@@ -71,14 +71,14 @@ def export_layout():
 
 	for p in cfg.pieces:
 		if p.shape_type == "triangle_mid":
-			layout[0] = piece_to_pose(p.center, p.angle)
+			layout[0] = piece_to_pose(p.center, p.angle-90)
 
 		elif p.shape_type == "triangle_small":
-			layout[1+small_i] = piece_to_pose(p.center, p.angle)
+			layout[1+small_i] = piece_to_pose(p.center, p.angle-90)
 			small_i += 1
 
 		elif p.shape_type == "triangle_big":
-			layout[1+big_i] = piece_to_pose(p.center, p.angle)
+			layout[1+big_i] = piece_to_pose(p.center, p.angle-90)
 			big_i += 1
 
 		elif p.shape_type == "square":

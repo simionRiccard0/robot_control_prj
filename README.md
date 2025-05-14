@@ -16,16 +16,10 @@ Tips :
 
 ## Tasks remaining
 
-1. Pick&Place :
-	a. Clean the PICK_total variables not in use
-2. TCP Connection :
-	a. Put in place an ACK system
-	b. Launch the data stream when a first ACK is received
-	c. ACK after every pieces
+
 
 3. Tangram:
-
-4. Robot :
+	Bug fixing the triangle (only triangle_mid ?) draft work
 
 
 

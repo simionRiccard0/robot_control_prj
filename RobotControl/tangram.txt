@@ -7,8 +7,10 @@
      open_socket≔socket_open("192.168.65.184", 8888, "ur5e_pc")
      Loop open_socket≟ False 
        open_socket≔socket_open("192.168.65.184", 8888, "ur5e_pc")
-     recv_i≔0
      placing_offset≔p[0,0,-0.02,0,0,0]
+     rpy_base≔rotvec2rpy([2.225, -2.208, 0])
+     orient≔[0,0,0]
+     recv_i≔0
      i≔0
      str_ack≔""
      is_receiving≔ False 
@@ -44,7 +46,9 @@
      parallelogram≔p[l[36],l[37],l[38],l[39],l[40],l[41]]
      cam_offset≔p[0.02,0,-0.025,0,0,1.570]
      i≔0
-     n_shapes≔3
+     n_shapes≔7
+     trgsm_n≔1
+     trgbig_n≔1
      MoveJ
        Start
    Robot Program
@@ -77,7 +81,8 @@
                shitrobot≔PLOC2D_JOB_ID
                'Popup'
                If shitrobot ≟ 1
-                 Popup
+                 orient≔rpy2rotvec(rpy_base+[0,0,triangle_mid[5]])
+                 triangle_mid≔pose_add(triangle_mid, p[0,0,0,orient[0], orient[1], orient[2]])
                  MoveJ
                    triangle_mid
                    triangle_mid≔pose_add(triangle_mid, placing_offset)
@@ -85,25 +90,66 @@
                    triangle_mid
                    Gripper Open (1)
                ElseIf shitrobot ≟ 2
-                 MoveJ
-                   triangle_s1
-                   triangle_s1≔pose_add(triangle_s1, placing_offset)
-                 MoveJ
-                   triangle_s1
-                   Gripper Open (1)
+                 If trgsm_n≟1
+                   orient≔rpy2rotvec(rpy_base+[0,0,triangle_s1[5]])
+                   triangle_s1≔pose_add(triangle_s1, p[0,0,0,orient[0], orient[1], orient[2]])
+                   MoveJ
+                     triangle_s1
+                     triangle_s1≔pose_add(triangle_s1, placing_offset)
+                   MoveJ
+                     triangle_s1
+                     Gripper Open (1)
+                   trgsm_n≔trgsm_n+1
+                 Else
+                   orient≔rpy2rotvec(rpy_base+[0,0,triangle_s2[5]])
+                   triangle_s2≔pose_add(triangle_s2, p[0,0,0,orient[0], orient[1], orient[2]])
+                   MoveJ
+                     triangle_s2
+                     triangle_s2≔pose_add(triangle_s1, placing_offset)
+                   MoveJ
+                     triangle_s2
+                     Gripper Open (1)
                ElseIf shitrobot ≟ 3
-                 MoveJ
-                   triangle_big1
-                   triangle_big1≔pose_add(triangle_big1, placing_offset)
+                 'MoveJ'
+                 If trgbig_n≟1
+                   orient≔rpy2rotvec(rpy_base+[0,0,triangle_big1[5]])
+                   triangle_big1≔pose_add(triangle_big1, p[0,0,0,orient[0], orient[1], orient[2]])
+                   MoveJ
+                     triangle_big1
+                     triangle_big1≔pose_add(triangle_big1, placing_offset)
+                   MoveJ
+                     triangle_big1
+                     Gripper Open (1)
+                   trgbig_n≔trgbig_n+1
+                 Else
+                   orient≔rpy2rotvec(rpy_base+[0,0,triangle_big2[5]])
+                   triangle_big2≔pose_add(triangle_big2, p[0,0,0,orient[0], orient[1], orient[2]])
+                   MoveJ
+                     triangle_big2
+                     triangle_big2≔pose_add(triangle_big2, placing_offset)
+                   MoveJ
+                     triangle_big2
+                     Gripper Open (1)
                  MoveJ
                    triangle_big1
                    Gripper Open (1)
                ElseIf shitrobot ≟ 4
+                 orient≔rpy2rotvec(rpy_base+[0,0,square[5]])
+                 square≔pose_add(square, p[0,0,0,orient[0], orient[1], orient[2]])
                  MoveJ
                    square
                    square≔pose_add(square, placing_offset)
                  MoveJ
                    square
+                   Gripper Open (1)
+               ElseIf shitrobot ≟ 5
+                 orient≔rpy2rotvec(rpy_base+[0,0,parallelogram[5]])
+                 parallelogram≔pose_add(parallelogram, p[0,0,0,orient[0], orient[1], orient[2]])
+                 MoveJ
+                   parallelogram
+                   parallelogram≔pose_add(parallelogram, placing_offset)
+                 MoveJ
+                   parallelogram
                    Gripper Open (1)
        i≔i+1
      MoveJ

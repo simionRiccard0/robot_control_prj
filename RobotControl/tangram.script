@@ -1,22 +1,13 @@
 def tangram():
   global _hidden_verificationVariable=0
-  step_count_3b175ebe_37c5_4e21_863d_aa8c8688eb85 = 0.0
-  thread Step_Counter_Thread_1e8540f9_f1fd_4b14_9a11_585794deb698():
+  step_count_f37a2128_4902_4b5d_ab63_599b10f4a2e3 = 0.0
+  thread Step_Counter_Thread_c9343d06_b429_4025_9dae_54bab750e16d():
     while (True):
-      step_count_3b175ebe_37c5_4e21_863d_aa8c8688eb85 = step_count_3b175ebe_37c5_4e21_863d_aa8c8688eb85 + 1.0
+      step_count_f37a2128_4902_4b5d_ab63_599b10f4a2e3 = step_count_f37a2128_4902_4b5d_ab63_599b10f4a2e3 + 1.0
       sync()
     end
   end
-  run Step_Counter_Thread_1e8540f9_f1fd_4b14_9a11_585794deb698()
-  set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
-  set_tool_output_mode(0)
-  set_tool_digital_output_mode(0, 1)
-  set_tool_digital_output_mode(1, 1)
-  set_tool_voltage(24)
-  set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
-  set_gravity([0.0, 0.0, 9.82])
-  set_target_payload(1.130000, [0.000000, 0.003000, 0.056000], [0.001887, 0.001887, 0.001887, 0.000000, 0.000000, 0.000000])
-  set_safety_mode_transition_hardness(1)
+  run Step_Counter_Thread_c9343d06_b429_4025_9dae_54bab750e16d()
   set_standard_analog_input_domain(0, 1)
   set_standard_analog_input_domain(1, 1)
   set_tool_analog_input_domain(0, 1)
@@ -24,6 +15,15 @@ def tangram():
   set_analog_outputdomain(0, 0)
   set_analog_outputdomain(1, 0)
   set_input_actions_to_default()
+  set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
+  set_tool_output_mode(0)
+  set_tool_digital_output_mode(0, 1)
+  set_tool_digital_output_mode(1, 1)
+  set_tool_voltage(24)
+  set_safety_mode_transition_hardness(1)
+  set_target_payload(1.130000, [0.000000, 0.003000, 0.056000], [0.001887, 0.001887, 0.001887, 0.000000, 0.000000, 0.000000])
+  set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
+  set_gravity([0.0, 0.0, 9.82])
   global Point_1=p[0.5673228734564902,-0.15694942793737932,0.5880304365120631,2.355554465134238,0.008459267052315513,-0.015313913082596288]
   global arucoPoS=p[0.14358606805362914,-0.5346312812726187,0.020062451119090552,-0.006999999999967311,-0.0059999999999720876,0.001999999999990575]
   global camera_point=p[0.5673249908663925,-0.15696842591057447,0.5880212097475621,2.3555427745427924,0.008487370770348553,-0.015384853854997254]
@@ -1022,88 +1022,96 @@ def tangram():
     $ 8 "open_socket≔socket_open('192.168.65.184', 8888, 'ur5e_pc')"
     global open_socket=socket_open("192.168.65.184", 8888, "ur5e_pc")
   end
-  $ 9 "recv_i≔0"
-  global recv_i=0
-  $ 10 "placing_offset≔p[0,0,-0.02,0,0,0]"
+  $ 9 "placing_offset≔p[0,0,-0.02,0,0,0]"
   global placing_offset=p[0,0,-0.02,0,0,0]
-  $ 11 "i≔0"
+  $ 10 "rpy_base≔rotvec2rpy([2.225, -2.208, 0])"
+  global rpy_base=rotvec2rpy([2.225, -2.208, 0])
+  $ 11 "orient≔[0,0,0]"
+  global orient=[0,0,0]
+  $ 12 "recv_i≔0"
+  global recv_i=0
+  $ 13 "i≔0"
   global i=0
-  $ 12 "str_ack≔''"
+  $ 14 "str_ack≔''"
   global str_ack=""
-  $ 13 "is_receiving≔ False "
+  $ 15 "is_receiving≔ False "
   global is_receiving=  False  
-  $ 19 "Loop 7 times"
+  $ 21 "Loop 7 times"
   Loop_2 = 0
   while (Loop_2 < 7):
-    $ 20 "Loop str_ack≠'ACK'"
+    $ 22 "Loop str_ack≠'ACK'"
     while (str_ack != "ACK"):
-      $ 21 "str_ack≔socket_read_string('ur5e_pc')"
+      $ 23 "str_ack≔socket_read_string('ur5e_pc')"
       global str_ack=socket_read_string("ur5e_pc")
-      $ 22 "Wait: 0.01"
+      $ 24 "Wait: 0.01"
       sleep(0.01)
     end
-    $ 23 "socket_data≔socket_read_ascii_float(6,'ur5e_pc')"
+    $ 25 "socket_data≔socket_read_ascii_float(6,'ur5e_pc')"
     global socket_data=socket_read_ascii_float(6,"ur5e_pc")
-    $ 24 "Loop socket_data[0]≠6"
+    $ 26 "Loop socket_data[0]≠6"
     while (socket_data[0] != 6):
-      $ 25 "socket_data≔socket_read_ascii_float(6,'ur5e_pc')"
+      $ 27 "socket_data≔socket_read_ascii_float(6,'ur5e_pc')"
       global socket_data=socket_read_ascii_float(6,"ur5e_pc")
-      $ 26 "Wait: 0.1"
+      $ 28 "Wait: 0.1"
       sleep(0.1)
     end
-    $ 27 "Loop recv_i<6"
+    $ 29 "Loop recv_i<6"
     while (recv_i<6):
-      $ 28 "l[i]=socket_data[recv_i+1]"
+      $ 30 "l[i]=socket_data[recv_i+1]"
       l[i]=socket_data[recv_i+1]
-      $ 29 "i≔i+1"
+      $ 31 "i≔i+1"
       global i=i+1
-      $ 30 "recv_i≔recv_i+1"
+      $ 32 "recv_i≔recv_i+1"
       global recv_i=recv_i+1
     end
-    $ 34 "recv_i≔0"
+    $ 36 "recv_i≔0"
     global recv_i=0
-    $ 35 "ack_send≔socket_send_string('ACK','ur5e_pc')"
+    $ 37 "ack_send≔socket_send_string('ACK','ur5e_pc')"
     global ack_send=socket_send_string("ACK","ur5e_pc")
-    $ 36 "Loop ack_send≟ False "
+    $ 38 "Loop ack_send≟ False "
     while (ack_send ==   False  ):
-      $ 37 "ack_send≔socket_send_string('ACK','ur5e_pc')"
+      $ 39 "ack_send≔socket_send_string('ACK','ur5e_pc')"
       global ack_send=socket_send_string("ACK","ur5e_pc")
-      $ 38 "Wait: 0.01"
+      $ 40 "Wait: 0.01"
       sleep(0.01)
     end
     Loop_2 = Loop_2 + 1
   end
-  $ 41 "triangle_mid≔p[l[0],l[1],l[2],l[3],l[4],l[5]]"
+  $ 43 "triangle_mid≔p[l[0],l[1],l[2],l[3],l[4],l[5]]"
   global triangle_mid=p[l[0],l[1],l[2],l[3],l[4],l[5]]
-  $ 42 "triangle_s1≔p[l[6],l[7],l[8],l[9],l[10],l[11]]"
+  $ 44 "triangle_s1≔p[l[6],l[7],l[8],l[9],l[10],l[11]]"
   global triangle_s1=p[l[6],l[7],l[8],l[9],l[10],l[11]]
-  $ 43 "triangle_s2≔p[l[12],l[13],l[14],l[15],l[16],l[17]]"
+  $ 45 "triangle_s2≔p[l[12],l[13],l[14],l[15],l[16],l[17]]"
   global triangle_s2=p[l[12],l[13],l[14],l[15],l[16],l[17]]
-  $ 44 "triangle_big1≔p[l[18],l[19],l[20],l[21],l[22],l[23]]"
+  $ 46 "triangle_big1≔p[l[18],l[19],l[20],l[21],l[22],l[23]]"
   global triangle_big1=p[l[18],l[19],l[20],l[21],l[22],l[23]]
-  $ 45 "triangle_big2≔p[l[24],l[25],l[26],l[27],l[28],l[29]]"
+  $ 47 "triangle_big2≔p[l[24],l[25],l[26],l[27],l[28],l[29]]"
   global triangle_big2=p[l[24],l[25],l[26],l[27],l[28],l[29]]
-  $ 46 "square≔p[l[30],l[31],l[32],l[33],l[34],l[35]]"
+  $ 48 "square≔p[l[30],l[31],l[32],l[33],l[34],l[35]]"
   global square=p[l[30],l[31],l[32],l[33],l[34],l[35]]
-  $ 47 "parallelogram≔p[l[36],l[37],l[38],l[39],l[40],l[41]]"
+  $ 49 "parallelogram≔p[l[36],l[37],l[38],l[39],l[40],l[41]]"
   global parallelogram=p[l[36],l[37],l[38],l[39],l[40],l[41]]
-  $ 48 "cam_offset≔p[0.02,0,-0.025,0,0,1.570]"
+  $ 50 "cam_offset≔p[0.02,0,-0.025,0,0,1.570]"
   global cam_offset=p[0.02,0,-0.025,0,0,1.570]
-  $ 49 "i≔0"
+  $ 51 "i≔0"
   global i=0
-  $ 50 "n_shapes≔3"
-  global n_shapes=3
-  $ 51 "MoveJ"
-  $ 52 "Start" "breakAfter"
+  $ 52 "n_shapes≔7"
+  global n_shapes=7
+  $ 53 "trgsm_n≔1"
+  global trgsm_n=1
+  $ 54 "trgbig_n≔1"
+  global trgbig_n=1
+  $ 55 "MoveJ"
+  $ 56 "Start" "breakAfter"
   set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-  $ 53 "Robot Program"
-  $ 54 "Loop i < n_shapes"
+  $ 57 "Robot Program"
+  $ 58 "Loop i < n_shapes"
   while (i < n_shapes):
     # begin: URCap Program Node
     #   Source: PART LOCALIZATION WITH SICK PLOC2D, 3.0.0.100, SICK AG - Developed by Nimalendiran Kailasanathan
     #   Type: PLOC2D
-    $ 56 "PLOC2D"
+    $ 60 "PLOC2D"
     activeTCP =p[0.0,0.0,0.165,0.0,0.0,0.0]
     PLOC_Ref=[0.642090,-1.790640,-2.202800,-0.733020,1.577610,0.627860]
     PLOC2D_STATUS = "Job(s) not located."
@@ -1226,31 +1234,31 @@ PLOC_clear=PLOC2D_corrClearPose
 		sync() 
 		end 
     DISCONNECT_To_PLOC()
-    $ 57 "Folder" "noBreak"
-    $ 58 "Pick and Place" "noBreak"
-    $ 59 "Start" "noBreak"
-    $ 60 "'Set start position and open gripper'" "noBreak"
+    $ 61 "Folder" "noBreak"
+    $ 62 "Pick and Place" "noBreak"
+    $ 63 "Start" "noBreak"
+    $ 64 "'Set start position and open gripper'" "noBreak"
     # 'Set start position and open gripper'
-    $ 61 "MoveJ" "noBreak"
-    $ 62 "Start" "noBreak"
+    $ 65 "MoveJ" "noBreak"
+    $ 66 "Start" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-    $ 65 "Approach" "noBreak"
-    $ 66 "MoveJ" "noBreak"
-    $ 67 "PLOC_prepick" "noBreak"
+    $ 69 "Approach" "noBreak"
+    $ 70 "MoveJ" "noBreak"
+    $ 71 "PLOC_prepick" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movej(PLOC_prepick, a=1.3962634015954636, v=1.0471975511965976, r=0.01)
-    $ 68 "Pick" "noBreak"
-    $ 69 "PLOC_pick≔pose_add(PLOC_pick,cam_offset)" "noBreak"
+    $ 72 "Pick" "noBreak"
+    $ 73 "PLOC_pick≔pose_add(PLOC_pick,cam_offset)" "noBreak"
     global PLOC_pick=pose_add(PLOC_pick,cam_offset)
-    $ 70 "MoveL" "noBreak"
-    $ 71 "PLOC_pick" "noBreak"
+    $ 74 "MoveL" "noBreak"
+    $ 75 "PLOC_pick" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movel(PLOC_pick, a=1.2, v=0.25)
     # begin: URCap Program Node
     #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
     #   Type: Gripper
-    $ 73 "Gripper Close (1)" "noBreak"
+    $ 77 "Gripper Close (1)" "noBreak"
     gripper_slave_ids_1 = [9]
     popupErrorGripperWord = "Gripper"
     popupErrorNoConnection1 = "must be connected to run this program."
@@ -1295,36 +1303,38 @@ PLOC_clear=PLOC2D_corrClearPose
         rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_1)
     end
     # end: URCap Program Node
-    $ 74 "Clear" "noBreak"
-    $ 75 "'Close gripper'" "noBreak"
+    $ 78 "Clear" "noBreak"
+    $ 79 "'Close gripper'" "noBreak"
     # 'Close gripper'
-    $ 76 "MoveL" "noBreak"
-    $ 77 "PLOC_clear" "noBreak"
+    $ 80 "MoveL" "noBreak"
+    $ 81 "PLOC_clear" "noBreak"
     set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
     movel(PLOC_clear, a=1.2, v=0.25, r=0.01)
-    $ 78 "Place" "noBreak"
-    $ 79 "'Set drop position and open gripper'" "noBreak"
+    $ 82 "Place" "noBreak"
+    $ 83 "'Set drop position and open gripper'" "noBreak"
     # 'Set drop position and open gripper'
-    $ 80 "shitrobot≔PLOC2D_JOB_ID" "noBreak"
+    $ 84 "shitrobot≔PLOC2D_JOB_ID" "noBreak"
     global shitrobot=PLOC2D_JOB_ID
-    $ 82 "If shitrobot ≟ 1" "noBreak"
+    $ 86 "If shitrobot ≟ 1" "noBreak"
     if (shitrobot  ==  1):
-      $ 83 "Popup" "noBreak"
-      popup(str_cat("",triangle_mid), "Message", False, False, blocking=True)
-      $ 84 "MoveJ" "noBreak"
-      $ 85 "triangle_mid" "noBreak"
+      $ 87 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_mid[5]])" "noBreak"
+      global orient=rpy2rotvec(rpy_base+[0,0,triangle_mid[5]])
+      $ 88 "triangle_mid≔pose_add(triangle_mid, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+      global triangle_mid= pose_add (triangle_mid, p[0,0,0,orient[0], orient[1], orient[2]])
+      $ 89 "MoveJ" "noBreak"
+      $ 90 "triangle_mid" "noBreak"
       set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
       movej(triangle_mid, a=1.3962634015954636, v=1.0471975511965976)
-      $ 86 "triangle_mid≔pose_add(triangle_mid, placing_offset)" "noBreak"
+      $ 91 "triangle_mid≔pose_add(triangle_mid, placing_offset)" "noBreak"
       global triangle_mid= pose_add (triangle_mid, placing_offset)
-      $ 87 "MoveJ" "noBreak"
-      $ 88 "triangle_mid" "noBreak"
+      $ 92 "MoveJ" "noBreak"
+      $ 93 "triangle_mid" "noBreak"
       set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
       movej(triangle_mid, a=1.3962634015954636, v=1.0471975511965976)
       # begin: URCap Program Node
       #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
       #   Type: Gripper
-      $ 89 "Gripper Open (1)" "noBreak"
+      $ 94 "Gripper Open (1)" "noBreak"
       gripper_slave_ids_2 = [9]
       popupErrorGripperWord = "Gripper"
       popupErrorNoConnection1 = "must be connected to run this program."
@@ -1370,79 +1380,90 @@ PLOC_clear=PLOC2D_corrClearPose
       end
       # end: URCap Program Node
     else:
-      $ 90 "ElseIf shitrobot ≟ 2" "noBreak"
+      $ 95 "ElseIf shitrobot ≟ 2" "noBreak"
       if (shitrobot  ==  2):
-        $ 91 "MoveJ" "noBreak"
-        $ 92 "triangle_s1" "noBreak"
-        movej(triangle_s1, a=1.3962634015954636, v=1.0471975511965976)
-        $ 93 "triangle_s1≔pose_add(triangle_s1, placing_offset)" "noBreak"
-        global triangle_s1= pose_add (triangle_s1, placing_offset)
-        $ 94 "MoveJ" "noBreak"
-        $ 95 "triangle_s1" "noBreak"
-        movej(triangle_s1, a=1.3962634015954636, v=1.0471975511965976)
-        # begin: URCap Program Node
-        #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
-        #   Type: Gripper
-        $ 96 "Gripper Open (1)" "noBreak"
-        gripper_slave_ids_3 = [9]
-        popupErrorGripperWord = "Gripper"
-        popupErrorNoConnection1 = "must be connected to run this program."
-        popupErrorNoConnection2 = "No connection"
-        popupErrorNotActivated1 = "is not activated. Go to Installation tab > Gripper to activate it and run the program again."
-        popupErrorNotActivated2 = "Not activated"
-        rq_gripper_speed = 100.0
-        rq_gripper_force = 100.0
-        rq_gripper_position = 0.0
-        rq_is_blocking = True
-        rq_is_robot_compliant = False
-        nb_slave_ids = get_list_length(gripper_slave_ids_3)
-        rq_wait_for_gripper_reconnection()
-        index = 0
-        while (index < nb_slave_ids):
-            if (not rq_is_gripper_connected(gripper_slave_ids_3[index])):
-                write_error_popup(index, popupErrorGripperWord, popupErrorNoConnection1, popupErrorNoConnection2)
-            end
-            index = index + 1
-        end
-        index = 0
-        while (index < nb_slave_ids):
-            if (not rq_is_gripper_activated(gripper_slave_ids_3[index])):
-                write_error_popup(index, popupErrorGripperWord, popupErrorNotActivated1, popupErrorNotActivated2)
-            end
-            index = index + 1
-        end
-        rq_set_speed_norm_multi_grippers(rq_gripper_speed, gripper_slave_ids_3)
-        rq_set_force_norm_multi_grippers(rq_gripper_force, gripper_slave_ids_3)
-        if (rq_is_blocking):
-            if rq_is_robot_compliant:
-                zero_ftsensor()
-                sleep(0.02)
-                # Maximum allowed deviation values for non-compliant axes are default values generated by UR in a Force node
-                force_mode(tool_pose(), [1, 1, 0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 2, [0.15, 0.15, 0.1, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
-            end
-            rq_move_and_wait_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_3)
-            if rq_is_robot_compliant:
-                end_force_mode()
-            end
-        else:
-            rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_3)
-        end
-        # end: URCap Program Node
-      else:
-        $ 97 "ElseIf shitrobot ≟ 3" "noBreak"
-        if (shitrobot  ==  3):
-          $ 98 "MoveJ" "noBreak"
-          $ 99 "triangle_big1" "noBreak"
-          movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
-          $ 100 "triangle_big1≔pose_add(triangle_big1, placing_offset)" "noBreak"
-          global triangle_big1= pose_add (triangle_big1, placing_offset)
-          $ 101 "MoveJ" "noBreak"
-          $ 102 "triangle_big1" "noBreak"
-          movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
+        $ 96 "If trgsm_n≟1" "noBreak"
+        if (trgsm_n == 1):
+          $ 97 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_s1[5]])" "noBreak"
+          global orient=rpy2rotvec(rpy_base+[0,0,triangle_s1[5]])
+          $ 98 "triangle_s1≔pose_add(triangle_s1, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+          global triangle_s1= pose_add (triangle_s1, p[0,0,0,orient[0], orient[1], orient[2]])
+          $ 99 "MoveJ" "noBreak"
+          $ 100 "triangle_s1" "noBreak"
+          movej(triangle_s1, a=1.3962634015954636, v=1.0471975511965976)
+          $ 101 "triangle_s1≔pose_add(triangle_s1, placing_offset)" "noBreak"
+          global triangle_s1= pose_add (triangle_s1, placing_offset)
+          $ 102 "MoveJ" "noBreak"
+          $ 103 "triangle_s1" "noBreak"
+          movej(triangle_s1, a=1.3962634015954636, v=1.0471975511965976)
           # begin: URCap Program Node
           #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
           #   Type: Gripper
-          $ 103 "Gripper Open (1)" "noBreak"
+          $ 104 "Gripper Open (1)" "noBreak"
+          gripper_slave_ids_3 = [9]
+          popupErrorGripperWord = "Gripper"
+          popupErrorNoConnection1 = "must be connected to run this program."
+          popupErrorNoConnection2 = "No connection"
+          popupErrorNotActivated1 = "is not activated. Go to Installation tab > Gripper to activate it and run the program again."
+          popupErrorNotActivated2 = "Not activated"
+          rq_gripper_speed = 100.0
+          rq_gripper_force = 100.0
+          rq_gripper_position = 0.0
+          rq_is_blocking = True
+          rq_is_robot_compliant = False
+          nb_slave_ids = get_list_length(gripper_slave_ids_3)
+          rq_wait_for_gripper_reconnection()
+          index = 0
+          while (index < nb_slave_ids):
+              if (not rq_is_gripper_connected(gripper_slave_ids_3[index])):
+                  write_error_popup(index, popupErrorGripperWord, popupErrorNoConnection1, popupErrorNoConnection2)
+              end
+              index = index + 1
+          end
+          index = 0
+          while (index < nb_slave_ids):
+              if (not rq_is_gripper_activated(gripper_slave_ids_3[index])):
+                  write_error_popup(index, popupErrorGripperWord, popupErrorNotActivated1, popupErrorNotActivated2)
+              end
+              index = index + 1
+          end
+          rq_set_speed_norm_multi_grippers(rq_gripper_speed, gripper_slave_ids_3)
+          rq_set_force_norm_multi_grippers(rq_gripper_force, gripper_slave_ids_3)
+          if (rq_is_blocking):
+              if rq_is_robot_compliant:
+                  zero_ftsensor()
+                  sleep(0.02)
+                  # Maximum allowed deviation values for non-compliant axes are default values generated by UR in a Force node
+                  force_mode(tool_pose(), [1, 1, 0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 2, [0.15, 0.15, 0.1, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+              end
+              rq_move_and_wait_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_3)
+              if rq_is_robot_compliant:
+                  end_force_mode()
+              end
+          else:
+              rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_3)
+          end
+          # end: URCap Program Node
+          $ 105 "trgsm_n≔trgsm_n+1" "noBreak"
+          global trgsm_n=trgsm_n+1
+        else:
+          $ 106 "Else" "noBreak"
+          $ 107 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_s2[5]])" "noBreak"
+          global orient=rpy2rotvec(rpy_base+[0,0,triangle_s2[5]])
+          $ 108 "triangle_s2≔pose_add(triangle_s2, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+          global triangle_s2= pose_add (triangle_s2, p[0,0,0,orient[0], orient[1], orient[2]])
+          $ 109 "MoveJ" "noBreak"
+          $ 110 "triangle_s2" "noBreak"
+          movej(triangle_s2, a=1.3962634015954636, v=1.0471975511965976)
+          $ 111 "triangle_s2≔pose_add(triangle_s1, placing_offset)" "noBreak"
+          global triangle_s2= pose_add (triangle_s1, placing_offset)
+          $ 112 "MoveJ" "noBreak"
+          $ 113 "triangle_s2" "noBreak"
+          movej(triangle_s2, a=1.3962634015954636, v=1.0471975511965976)
+          # begin: URCap Program Node
+          #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
+          #   Type: Gripper
+          $ 114 "Gripper Open (1)" "noBreak"
           gripper_slave_ids_4 = [9]
           popupErrorGripperWord = "Gripper"
           popupErrorNoConnection1 = "must be connected to run this program."
@@ -1487,22 +1508,28 @@ PLOC_clear=PLOC2D_corrClearPose
               rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_4)
           end
           # end: URCap Program Node
-        else:
-          $ 104 "ElseIf shitrobot ≟ 4" "noBreak"
-          if (shitrobot  ==  4):
-            $ 105 "MoveJ" "noBreak"
-            $ 106 "square" "noBreak"
-            set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
-            movej(square, a=1.3962634015954636, v=1.0471975511965976)
-            $ 107 "square≔pose_add(square, placing_offset)" "noBreak"
-            global square= pose_add (square, placing_offset)
-            $ 108 "MoveJ" "noBreak"
-            $ 109 "square" "noBreak"
-            movej(square, a=1.3962634015954636, v=1.0471975511965976)
+        end
+      else:
+        $ 115 "ElseIf shitrobot ≟ 3" "noBreak"
+        if (shitrobot  ==  3):
+          $ 119 "If trgbig_n≟1" "noBreak"
+          if (trgbig_n == 1):
+            $ 120 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_big1[5]])" "noBreak"
+            global orient=rpy2rotvec(rpy_base+[0,0,triangle_big1[5]])
+            $ 121 "triangle_big1≔pose_add(triangle_big1, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+            global triangle_big1= pose_add (triangle_big1, p[0,0,0,orient[0], orient[1], orient[2]])
+            $ 122 "MoveJ" "noBreak"
+            $ 123 "triangle_big1" "noBreak"
+            movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
+            $ 124 "triangle_big1≔pose_add(triangle_big1, placing_offset)" "noBreak"
+            global triangle_big1= pose_add (triangle_big1, placing_offset)
+            $ 125 "MoveJ" "noBreak"
+            $ 126 "triangle_big1" "noBreak"
+            movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
             # begin: URCap Program Node
             #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
             #   Type: Gripper
-            $ 110 "Gripper Open (1)" "noBreak"
+            $ 127 "Gripper Open (1)" "noBreak"
             gripper_slave_ids_5 = [9]
             popupErrorGripperWord = "Gripper"
             popupErrorNoConnection1 = "must be connected to run this program."
@@ -1547,16 +1574,261 @@ PLOC_clear=PLOC2D_corrClearPose
                 rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_5)
             end
             # end: URCap Program Node
+            $ 128 "trgbig_n≔trgbig_n+1" "noBreak"
+            global trgbig_n=trgbig_n+1
+          else:
+            $ 129 "Else" "noBreak"
+            $ 130 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_big2[5]])" "noBreak"
+            global orient=rpy2rotvec(rpy_base+[0,0,triangle_big2[5]])
+            $ 131 "triangle_big2≔pose_add(triangle_big2, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+            global triangle_big2= pose_add (triangle_big2, p[0,0,0,orient[0], orient[1], orient[2]])
+            $ 132 "MoveJ" "noBreak"
+            $ 133 "triangle_big2" "noBreak"
+            movej(triangle_big2, a=1.3962634015954636, v=1.0471975511965976)
+            $ 134 "triangle_big2≔pose_add(triangle_big2, placing_offset)" "noBreak"
+            global triangle_big2= pose_add (triangle_big2, placing_offset)
+            $ 135 "MoveJ" "noBreak"
+            $ 136 "triangle_big2" "noBreak"
+            movej(triangle_big2, a=1.3962634015954636, v=1.0471975511965976)
+            # begin: URCap Program Node
+            #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
+            #   Type: Gripper
+            $ 137 "Gripper Open (1)" "noBreak"
+            gripper_slave_ids_6 = [9]
+            popupErrorGripperWord = "Gripper"
+            popupErrorNoConnection1 = "must be connected to run this program."
+            popupErrorNoConnection2 = "No connection"
+            popupErrorNotActivated1 = "is not activated. Go to Installation tab > Gripper to activate it and run the program again."
+            popupErrorNotActivated2 = "Not activated"
+            rq_gripper_speed = 100.0
+            rq_gripper_force = 100.0
+            rq_gripper_position = 0.0
+            rq_is_blocking = True
+            rq_is_robot_compliant = False
+            nb_slave_ids = get_list_length(gripper_slave_ids_6)
+            rq_wait_for_gripper_reconnection()
+            index = 0
+            while (index < nb_slave_ids):
+                if (not rq_is_gripper_connected(gripper_slave_ids_6[index])):
+                    write_error_popup(index, popupErrorGripperWord, popupErrorNoConnection1, popupErrorNoConnection2)
+                end
+                index = index + 1
+            end
+            index = 0
+            while (index < nb_slave_ids):
+                if (not rq_is_gripper_activated(gripper_slave_ids_6[index])):
+                    write_error_popup(index, popupErrorGripperWord, popupErrorNotActivated1, popupErrorNotActivated2)
+                end
+                index = index + 1
+            end
+            rq_set_speed_norm_multi_grippers(rq_gripper_speed, gripper_slave_ids_6)
+            rq_set_force_norm_multi_grippers(rq_gripper_force, gripper_slave_ids_6)
+            if (rq_is_blocking):
+                if rq_is_robot_compliant:
+                    zero_ftsensor()
+                    sleep(0.02)
+                    # Maximum allowed deviation values for non-compliant axes are default values generated by UR in a Force node
+                    force_mode(tool_pose(), [1, 1, 0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 2, [0.15, 0.15, 0.1, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+                end
+                rq_move_and_wait_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_6)
+                if rq_is_robot_compliant:
+                    end_force_mode()
+                end
+            else:
+                rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_6)
+            end
+            # end: URCap Program Node
+          end
+          $ 138 "MoveJ" "noBreak"
+          $ 139 "triangle_big1" "noBreak"
+          movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
+          # begin: URCap Program Node
+          #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
+          #   Type: Gripper
+          $ 140 "Gripper Open (1)" "noBreak"
+          gripper_slave_ids_7 = [9]
+          popupErrorGripperWord = "Gripper"
+          popupErrorNoConnection1 = "must be connected to run this program."
+          popupErrorNoConnection2 = "No connection"
+          popupErrorNotActivated1 = "is not activated. Go to Installation tab > Gripper to activate it and run the program again."
+          popupErrorNotActivated2 = "Not activated"
+          rq_gripper_speed = 100.0
+          rq_gripper_force = 100.0
+          rq_gripper_position = 0.0
+          rq_is_blocking = True
+          rq_is_robot_compliant = False
+          nb_slave_ids = get_list_length(gripper_slave_ids_7)
+          rq_wait_for_gripper_reconnection()
+          index = 0
+          while (index < nb_slave_ids):
+              if (not rq_is_gripper_connected(gripper_slave_ids_7[index])):
+                  write_error_popup(index, popupErrorGripperWord, popupErrorNoConnection1, popupErrorNoConnection2)
+              end
+              index = index + 1
+          end
+          index = 0
+          while (index < nb_slave_ids):
+              if (not rq_is_gripper_activated(gripper_slave_ids_7[index])):
+                  write_error_popup(index, popupErrorGripperWord, popupErrorNotActivated1, popupErrorNotActivated2)
+              end
+              index = index + 1
+          end
+          rq_set_speed_norm_multi_grippers(rq_gripper_speed, gripper_slave_ids_7)
+          rq_set_force_norm_multi_grippers(rq_gripper_force, gripper_slave_ids_7)
+          if (rq_is_blocking):
+              if rq_is_robot_compliant:
+                  zero_ftsensor()
+                  sleep(0.02)
+                  # Maximum allowed deviation values for non-compliant axes are default values generated by UR in a Force node
+                  force_mode(tool_pose(), [1, 1, 0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 2, [0.15, 0.15, 0.1, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+              end
+              rq_move_and_wait_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_7)
+              if rq_is_robot_compliant:
+                  end_force_mode()
+              end
+          else:
+              rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_7)
+          end
+          # end: URCap Program Node
+        else:
+          $ 141 "ElseIf shitrobot ≟ 4" "noBreak"
+          if (shitrobot  ==  4):
+            $ 142 "orient≔rpy2rotvec(rpy_base+[0,0,square[5]])" "noBreak"
+            global orient=rpy2rotvec(rpy_base+[0,0,square[5]])
+            $ 143 "square≔pose_add(square, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+            global square= pose_add (square, p[0,0,0,orient[0], orient[1], orient[2]])
+            $ 144 "MoveJ" "noBreak"
+            $ 145 "square" "noBreak"
+            set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
+            movej(square, a=1.3962634015954636, v=1.0471975511965976)
+            $ 146 "square≔pose_add(square, placing_offset)" "noBreak"
+            global square= pose_add (square, placing_offset)
+            $ 147 "MoveJ" "noBreak"
+            $ 148 "square" "noBreak"
+            movej(square, a=1.3962634015954636, v=1.0471975511965976)
+            # begin: URCap Program Node
+            #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
+            #   Type: Gripper
+            $ 149 "Gripper Open (1)" "noBreak"
+            gripper_slave_ids_8 = [9]
+            popupErrorGripperWord = "Gripper"
+            popupErrorNoConnection1 = "must be connected to run this program."
+            popupErrorNoConnection2 = "No connection"
+            popupErrorNotActivated1 = "is not activated. Go to Installation tab > Gripper to activate it and run the program again."
+            popupErrorNotActivated2 = "Not activated"
+            rq_gripper_speed = 100.0
+            rq_gripper_force = 100.0
+            rq_gripper_position = 0.0
+            rq_is_blocking = True
+            rq_is_robot_compliant = False
+            nb_slave_ids = get_list_length(gripper_slave_ids_8)
+            rq_wait_for_gripper_reconnection()
+            index = 0
+            while (index < nb_slave_ids):
+                if (not rq_is_gripper_connected(gripper_slave_ids_8[index])):
+                    write_error_popup(index, popupErrorGripperWord, popupErrorNoConnection1, popupErrorNoConnection2)
+                end
+                index = index + 1
+            end
+            index = 0
+            while (index < nb_slave_ids):
+                if (not rq_is_gripper_activated(gripper_slave_ids_8[index])):
+                    write_error_popup(index, popupErrorGripperWord, popupErrorNotActivated1, popupErrorNotActivated2)
+                end
+                index = index + 1
+            end
+            rq_set_speed_norm_multi_grippers(rq_gripper_speed, gripper_slave_ids_8)
+            rq_set_force_norm_multi_grippers(rq_gripper_force, gripper_slave_ids_8)
+            if (rq_is_blocking):
+                if rq_is_robot_compliant:
+                    zero_ftsensor()
+                    sleep(0.02)
+                    # Maximum allowed deviation values for non-compliant axes are default values generated by UR in a Force node
+                    force_mode(tool_pose(), [1, 1, 0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 2, [0.15, 0.15, 0.1, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+                end
+                rq_move_and_wait_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_8)
+                if rq_is_robot_compliant:
+                    end_force_mode()
+                end
+            else:
+                rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_8)
+            end
+            # end: URCap Program Node
+          else:
+            $ 150 "ElseIf shitrobot ≟ 5" "noBreak"
+            if (shitrobot  ==  5):
+              $ 151 "orient≔rpy2rotvec(rpy_base+[0,0,parallelogram[5]])" "noBreak"
+              global orient=rpy2rotvec(rpy_base+[0,0,parallelogram[5]])
+              $ 152 "parallelogram≔pose_add(parallelogram, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+              global parallelogram= pose_add (parallelogram, p[0,0,0,orient[0], orient[1], orient[2]])
+              $ 153 "MoveJ" "noBreak"
+              $ 154 "parallelogram" "noBreak"
+              set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
+              movej(parallelogram, a=1.3962634015954636, v=1.0471975511965976)
+              $ 155 "parallelogram≔pose_add(parallelogram, placing_offset)" "noBreak"
+              global parallelogram= pose_add (parallelogram, placing_offset)
+              $ 156 "MoveJ" "noBreak"
+              $ 157 "parallelogram" "noBreak"
+              movej(parallelogram, a=1.3962634015954636, v=1.0471975511965976)
+              # begin: URCap Program Node
+              #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
+              #   Type: Gripper
+              $ 158 "Gripper Open (1)" "noBreak"
+              gripper_slave_ids_9 = [9]
+              popupErrorGripperWord = "Gripper"
+              popupErrorNoConnection1 = "must be connected to run this program."
+              popupErrorNoConnection2 = "No connection"
+              popupErrorNotActivated1 = "is not activated. Go to Installation tab > Gripper to activate it and run the program again."
+              popupErrorNotActivated2 = "Not activated"
+              rq_gripper_speed = 100.0
+              rq_gripper_force = 100.0
+              rq_gripper_position = 0.0
+              rq_is_blocking = True
+              rq_is_robot_compliant = False
+              nb_slave_ids = get_list_length(gripper_slave_ids_9)
+              rq_wait_for_gripper_reconnection()
+              index = 0
+              while (index < nb_slave_ids):
+                  if (not rq_is_gripper_connected(gripper_slave_ids_9[index])):
+                      write_error_popup(index, popupErrorGripperWord, popupErrorNoConnection1, popupErrorNoConnection2)
+                  end
+                  index = index + 1
+              end
+              index = 0
+              while (index < nb_slave_ids):
+                  if (not rq_is_gripper_activated(gripper_slave_ids_9[index])):
+                      write_error_popup(index, popupErrorGripperWord, popupErrorNotActivated1, popupErrorNotActivated2)
+                  end
+                  index = index + 1
+              end
+              rq_set_speed_norm_multi_grippers(rq_gripper_speed, gripper_slave_ids_9)
+              rq_set_force_norm_multi_grippers(rq_gripper_force, gripper_slave_ids_9)
+              if (rq_is_blocking):
+                  if rq_is_robot_compliant:
+                      zero_ftsensor()
+                      sleep(0.02)
+                      # Maximum allowed deviation values for non-compliant axes are default values generated by UR in a Force node
+                      force_mode(tool_pose(), [1, 1, 0, 0, 0, 0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 2, [0.15, 0.15, 0.1, 0.3490658503988659, 0.3490658503988659, 0.3490658503988659])
+                  end
+                  rq_move_and_wait_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_9)
+                  if rq_is_robot_compliant:
+                      end_force_mode()
+                  end
+              else:
+                  rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_9)
+              end
+              # end: URCap Program Node
+            end
           end
         end
       end
     end
     # end: URCap Program Node
-    $ 111 "i≔i+1"
+    $ 159 "i≔i+1"
     global i=i+1
   end
-  $ 112 "MoveJ"
-  $ 113 "Start" "breakAfter"
+  $ 160 "MoveJ"
+  $ 161 "Start" "breakAfter"
   set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
 end

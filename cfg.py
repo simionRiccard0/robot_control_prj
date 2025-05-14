@@ -11,8 +11,8 @@ trgt_port = 8888
 LOWER_COORD = (284, -350) #x, y
 HIGHER_COORD = (544, 25) #x, y for the robot
 TZ = 0.05 #mm
-RX = 2.1 #rad
-RY = -2.3 #rad
+RX = 0 #rad
+RY = 0 #rad
 RZ = 0 #rad
 SHAPE_0 = [0.3, 
 			0.025, 
