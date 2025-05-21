@@ -1,13 +1,13 @@
 def tangram():
   global _hidden_verificationVariable=0
-  step_count_f37a2128_4902_4b5d_ab63_599b10f4a2e3 = 0.0
-  thread Step_Counter_Thread_c9343d06_b429_4025_9dae_54bab750e16d():
+  step_count_8a43ddc8_f1c9_46ca_8ae9_403e9f2cf8b3 = 0.0
+  thread Step_Counter_Thread_7118271e_d786_4157_a00a_a32e0f093c2e():
     while (True):
-      step_count_f37a2128_4902_4b5d_ab63_599b10f4a2e3 = step_count_f37a2128_4902_4b5d_ab63_599b10f4a2e3 + 1.0
+      step_count_8a43ddc8_f1c9_46ca_8ae9_403e9f2cf8b3 = step_count_8a43ddc8_f1c9_46ca_8ae9_403e9f2cf8b3 + 1.0
       sync()
     end
   end
-  run Step_Counter_Thread_c9343d06_b429_4025_9dae_54bab750e16d()
+  run Step_Counter_Thread_7118271e_d786_4157_a00a_a32e0f093c2e()
   set_standard_analog_input_domain(0, 1)
   set_standard_analog_input_domain(1, 1)
   set_tool_analog_input_domain(0, 1)
@@ -15,15 +15,15 @@ def tangram():
   set_analog_outputdomain(0, 0)
   set_analog_outputdomain(1, 0)
   set_input_actions_to_default()
+  set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   set_tool_communication(True, 115200, 0, 1, 1.5, 3.5)
   set_tool_output_mode(0)
   set_tool_digital_output_mode(0, 1)
   set_tool_digital_output_mode(1, 1)
   set_tool_voltage(24)
-  set_safety_mode_transition_hardness(1)
-  set_target_payload(1.130000, [0.000000, 0.003000, 0.056000], [0.001887, 0.001887, 0.001887, 0.000000, 0.000000, 0.000000])
-  set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   set_gravity([0.0, 0.0, 9.82])
+  set_target_payload(1.130000, [0.000000, 0.003000, 0.056000], [0.001887, 0.001887, 0.001887, 0.000000, 0.000000, 0.000000])
+  set_safety_mode_transition_hardness(1)
   global Point_1=p[0.5673228734564902,-0.15694942793737932,0.5880304365120631,2.355554465134238,0.008459267052315513,-0.015313913082596288]
   global arucoPoS=p[0.14358606805362914,-0.5346312812726187,0.020062451119090552,-0.006999999999967311,-0.0059999999999720876,0.001999999999990575]
   global camera_point=p[0.5673249908663925,-0.15696842591057447,0.5880212097475621,2.3555427745427924,0.008487370770348553,-0.015384853854997254]
@@ -1015,12 +1015,12 @@ def tangram():
   # end: URCap Program Node
   $ 5 "l≔make_list(42, 0)"
   global l=make_list(42, 0)
-  $ 6 "open_socket≔socket_open('192.168.65.184', 8888, 'ur5e_pc')"
-  global open_socket=socket_open("192.168.65.184", 8888, "ur5e_pc")
+  $ 6 "open_socket≔socket_open('192.168.65.161', 8888, 'ur5e_pc')"
+  global open_socket=socket_open("192.168.65.161", 8888, "ur5e_pc")
   $ 7 "Loop open_socket≟ False "
   while (open_socket ==   False  ):
-    $ 8 "open_socket≔socket_open('192.168.65.184', 8888, 'ur5e_pc')"
-    global open_socket=socket_open("192.168.65.184", 8888, "ur5e_pc")
+    $ 8 "open_socket≔socket_open('192.168.65.161', 8888, 'ur5e_pc')"
+    global open_socket=socket_open("192.168.65.161", 8888, "ur5e_pc")
   end
   $ 9 "placing_offset≔p[0,0,-0.02,0,0,0]"
   global placing_offset=p[0,0,-0.02,0,0,0]
@@ -1319,22 +1319,24 @@ PLOC_clear=PLOC2D_corrClearPose
     if (shitrobot  ==  1):
       $ 87 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_mid[5]])" "noBreak"
       global orient=rpy2rotvec(rpy_base+[0,0,triangle_mid[5]])
-      $ 88 "triangle_mid≔pose_add(triangle_mid, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
-      global triangle_mid= pose_add (triangle_mid, p[0,0,0,orient[0], orient[1], orient[2]])
-      $ 89 "MoveJ" "noBreak"
-      $ 90 "triangle_mid" "noBreak"
+      $ 89 "triangle_mid≔p[triangle_mid[0], triangle_mid[1], triangle_mid[2],orient[0], orient[1], orient[2]]" "noBreak"
+      global triangle_mid=p[triangle_mid[0], triangle_mid[1], triangle_mid[2],orient[0], orient[1], orient[2]]
+      $ 90 "debug1≔rotvec2rpy([triangle_mid[5], triangle_mid[4], triangle_mid[5]])" "noBreak"
+      global debug1=rotvec2rpy([triangle_mid[5], triangle_mid[4], triangle_mid[5]])
+      $ 91 "MoveJ" "noBreak"
+      $ 92 "triangle_mid" "noBreak"
       set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
       movej(triangle_mid, a=1.3962634015954636, v=1.0471975511965976)
-      $ 91 "triangle_mid≔pose_add(triangle_mid, placing_offset)" "noBreak"
+      $ 93 "triangle_mid≔pose_add(triangle_mid, placing_offset)" "noBreak"
       global triangle_mid= pose_add (triangle_mid, placing_offset)
-      $ 92 "MoveJ" "noBreak"
-      $ 93 "triangle_mid" "noBreak"
+      $ 94 "MoveJ" "noBreak"
+      $ 95 "triangle_mid" "noBreak"
       set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
       movej(triangle_mid, a=1.3962634015954636, v=1.0471975511965976)
       # begin: URCap Program Node
       #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
       #   Type: Gripper
-      $ 94 "Gripper Open (1)" "noBreak"
+      $ 96 "Gripper Open (1)" "noBreak"
       gripper_slave_ids_2 = [9]
       popupErrorGripperWord = "Gripper"
       popupErrorNoConnection1 = "must be connected to run this program."
@@ -1380,26 +1382,26 @@ PLOC_clear=PLOC2D_corrClearPose
       end
       # end: URCap Program Node
     else:
-      $ 95 "ElseIf shitrobot ≟ 2" "noBreak"
+      $ 97 "ElseIf shitrobot ≟ 2" "noBreak"
       if (shitrobot  ==  2):
-        $ 96 "If trgsm_n≟1" "noBreak"
+        $ 98 "If trgsm_n≟1" "noBreak"
         if (trgsm_n == 1):
-          $ 97 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_s1[5]])" "noBreak"
+          $ 99 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_s1[5]])" "noBreak"
           global orient=rpy2rotvec(rpy_base+[0,0,triangle_s1[5]])
-          $ 98 "triangle_s1≔pose_add(triangle_s1, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+          $ 100 "triangle_s1≔pose_add(triangle_s1, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
           global triangle_s1= pose_add (triangle_s1, p[0,0,0,orient[0], orient[1], orient[2]])
-          $ 99 "MoveJ" "noBreak"
-          $ 100 "triangle_s1" "noBreak"
+          $ 101 "MoveJ" "noBreak"
+          $ 102 "triangle_s1" "noBreak"
           movej(triangle_s1, a=1.3962634015954636, v=1.0471975511965976)
-          $ 101 "triangle_s1≔pose_add(triangle_s1, placing_offset)" "noBreak"
+          $ 103 "triangle_s1≔pose_add(triangle_s1, placing_offset)" "noBreak"
           global triangle_s1= pose_add (triangle_s1, placing_offset)
-          $ 102 "MoveJ" "noBreak"
-          $ 103 "triangle_s1" "noBreak"
+          $ 104 "MoveJ" "noBreak"
+          $ 105 "triangle_s1" "noBreak"
           movej(triangle_s1, a=1.3962634015954636, v=1.0471975511965976)
           # begin: URCap Program Node
           #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
           #   Type: Gripper
-          $ 104 "Gripper Open (1)" "noBreak"
+          $ 106 "Gripper Open (1)" "noBreak"
           gripper_slave_ids_3 = [9]
           popupErrorGripperWord = "Gripper"
           popupErrorNoConnection1 = "must be connected to run this program."
@@ -1444,26 +1446,26 @@ PLOC_clear=PLOC2D_corrClearPose
               rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_3)
           end
           # end: URCap Program Node
-          $ 105 "trgsm_n≔trgsm_n+1" "noBreak"
+          $ 107 "trgsm_n≔trgsm_n+1" "noBreak"
           global trgsm_n=trgsm_n+1
         else:
-          $ 106 "Else" "noBreak"
-          $ 107 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_s2[5]])" "noBreak"
+          $ 108 "Else" "noBreak"
+          $ 109 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_s2[5]])" "noBreak"
           global orient=rpy2rotvec(rpy_base+[0,0,triangle_s2[5]])
-          $ 108 "triangle_s2≔pose_add(triangle_s2, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+          $ 110 "triangle_s2≔pose_add(triangle_s2, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
           global triangle_s2= pose_add (triangle_s2, p[0,0,0,orient[0], orient[1], orient[2]])
-          $ 109 "MoveJ" "noBreak"
-          $ 110 "triangle_s2" "noBreak"
+          $ 111 "MoveJ" "noBreak"
+          $ 112 "triangle_s2" "noBreak"
           movej(triangle_s2, a=1.3962634015954636, v=1.0471975511965976)
-          $ 111 "triangle_s2≔pose_add(triangle_s1, placing_offset)" "noBreak"
+          $ 113 "triangle_s2≔pose_add(triangle_s1, placing_offset)" "noBreak"
           global triangle_s2= pose_add (triangle_s1, placing_offset)
-          $ 112 "MoveJ" "noBreak"
-          $ 113 "triangle_s2" "noBreak"
+          $ 114 "MoveJ" "noBreak"
+          $ 115 "triangle_s2" "noBreak"
           movej(triangle_s2, a=1.3962634015954636, v=1.0471975511965976)
           # begin: URCap Program Node
           #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
           #   Type: Gripper
-          $ 114 "Gripper Open (1)" "noBreak"
+          $ 116 "Gripper Open (1)" "noBreak"
           gripper_slave_ids_4 = [9]
           popupErrorGripperWord = "Gripper"
           popupErrorNoConnection1 = "must be connected to run this program."
@@ -1510,26 +1512,26 @@ PLOC_clear=PLOC2D_corrClearPose
           # end: URCap Program Node
         end
       else:
-        $ 115 "ElseIf shitrobot ≟ 3" "noBreak"
+        $ 117 "ElseIf shitrobot ≟ 3" "noBreak"
         if (shitrobot  ==  3):
-          $ 119 "If trgbig_n≟1" "noBreak"
+          $ 121 "If trgbig_n≟1" "noBreak"
           if (trgbig_n == 1):
-            $ 120 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_big1[5]])" "noBreak"
+            $ 122 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_big1[5]])" "noBreak"
             global orient=rpy2rotvec(rpy_base+[0,0,triangle_big1[5]])
-            $ 121 "triangle_big1≔pose_add(triangle_big1, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+            $ 123 "triangle_big1≔pose_add(triangle_big1, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
             global triangle_big1= pose_add (triangle_big1, p[0,0,0,orient[0], orient[1], orient[2]])
-            $ 122 "MoveJ" "noBreak"
-            $ 123 "triangle_big1" "noBreak"
+            $ 124 "MoveJ" "noBreak"
+            $ 125 "triangle_big1" "noBreak"
             movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
-            $ 124 "triangle_big1≔pose_add(triangle_big1, placing_offset)" "noBreak"
+            $ 126 "triangle_big1≔pose_add(triangle_big1, placing_offset)" "noBreak"
             global triangle_big1= pose_add (triangle_big1, placing_offset)
-            $ 125 "MoveJ" "noBreak"
-            $ 126 "triangle_big1" "noBreak"
+            $ 127 "MoveJ" "noBreak"
+            $ 128 "triangle_big1" "noBreak"
             movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
             # begin: URCap Program Node
             #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
             #   Type: Gripper
-            $ 127 "Gripper Open (1)" "noBreak"
+            $ 129 "Gripper Open (1)" "noBreak"
             gripper_slave_ids_5 = [9]
             popupErrorGripperWord = "Gripper"
             popupErrorNoConnection1 = "must be connected to run this program."
@@ -1574,26 +1576,26 @@ PLOC_clear=PLOC2D_corrClearPose
                 rq_move_norm_multi_grippers(rq_gripper_position, gripper_slave_ids_5)
             end
             # end: URCap Program Node
-            $ 128 "trgbig_n≔trgbig_n+1" "noBreak"
+            $ 130 "trgbig_n≔trgbig_n+1" "noBreak"
             global trgbig_n=trgbig_n+1
           else:
-            $ 129 "Else" "noBreak"
-            $ 130 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_big2[5]])" "noBreak"
+            $ 131 "Else" "noBreak"
+            $ 132 "orient≔rpy2rotvec(rpy_base+[0,0,triangle_big2[5]])" "noBreak"
             global orient=rpy2rotvec(rpy_base+[0,0,triangle_big2[5]])
-            $ 131 "triangle_big2≔pose_add(triangle_big2, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+            $ 133 "triangle_big2≔pose_add(triangle_big2, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
             global triangle_big2= pose_add (triangle_big2, p[0,0,0,orient[0], orient[1], orient[2]])
-            $ 132 "MoveJ" "noBreak"
-            $ 133 "triangle_big2" "noBreak"
+            $ 134 "MoveJ" "noBreak"
+            $ 135 "triangle_big2" "noBreak"
             movej(triangle_big2, a=1.3962634015954636, v=1.0471975511965976)
-            $ 134 "triangle_big2≔pose_add(triangle_big2, placing_offset)" "noBreak"
+            $ 136 "triangle_big2≔pose_add(triangle_big2, placing_offset)" "noBreak"
             global triangle_big2= pose_add (triangle_big2, placing_offset)
-            $ 135 "MoveJ" "noBreak"
-            $ 136 "triangle_big2" "noBreak"
+            $ 137 "MoveJ" "noBreak"
+            $ 138 "triangle_big2" "noBreak"
             movej(triangle_big2, a=1.3962634015954636, v=1.0471975511965976)
             # begin: URCap Program Node
             #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
             #   Type: Gripper
-            $ 137 "Gripper Open (1)" "noBreak"
+            $ 139 "Gripper Open (1)" "noBreak"
             gripper_slave_ids_6 = [9]
             popupErrorGripperWord = "Gripper"
             popupErrorNoConnection1 = "must be connected to run this program."
@@ -1639,13 +1641,13 @@ PLOC_clear=PLOC2D_corrClearPose
             end
             # end: URCap Program Node
           end
-          $ 138 "MoveJ" "noBreak"
-          $ 139 "triangle_big1" "noBreak"
+          $ 140 "MoveJ" "noBreak"
+          $ 141 "triangle_big1" "noBreak"
           movej(triangle_big1, a=1.3962634015954636, v=1.0471975511965976)
           # begin: URCap Program Node
           #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
           #   Type: Gripper
-          $ 140 "Gripper Open (1)" "noBreak"
+          $ 142 "Gripper Open (1)" "noBreak"
           gripper_slave_ids_7 = [9]
           popupErrorGripperWord = "Gripper"
           popupErrorNoConnection1 = "must be connected to run this program."
@@ -1691,25 +1693,25 @@ PLOC_clear=PLOC2D_corrClearPose
           end
           # end: URCap Program Node
         else:
-          $ 141 "ElseIf shitrobot ≟ 4" "noBreak"
+          $ 143 "ElseIf shitrobot ≟ 4" "noBreak"
           if (shitrobot  ==  4):
-            $ 142 "orient≔rpy2rotvec(rpy_base+[0,0,square[5]])" "noBreak"
+            $ 144 "orient≔rpy2rotvec(rpy_base+[0,0,square[5]])" "noBreak"
             global orient=rpy2rotvec(rpy_base+[0,0,square[5]])
-            $ 143 "square≔pose_add(square, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+            $ 145 "square≔pose_add(square, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
             global square= pose_add (square, p[0,0,0,orient[0], orient[1], orient[2]])
-            $ 144 "MoveJ" "noBreak"
-            $ 145 "square" "noBreak"
+            $ 146 "MoveJ" "noBreak"
+            $ 147 "square" "noBreak"
             set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
             movej(square, a=1.3962634015954636, v=1.0471975511965976)
-            $ 146 "square≔pose_add(square, placing_offset)" "noBreak"
+            $ 148 "square≔pose_add(square, placing_offset)" "noBreak"
             global square= pose_add (square, placing_offset)
-            $ 147 "MoveJ" "noBreak"
-            $ 148 "square" "noBreak"
+            $ 149 "MoveJ" "noBreak"
+            $ 150 "square" "noBreak"
             movej(square, a=1.3962634015954636, v=1.0471975511965976)
             # begin: URCap Program Node
             #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
             #   Type: Gripper
-            $ 149 "Gripper Open (1)" "noBreak"
+            $ 151 "Gripper Open (1)" "noBreak"
             gripper_slave_ids_8 = [9]
             popupErrorGripperWord = "Gripper"
             popupErrorNoConnection1 = "must be connected to run this program."
@@ -1755,25 +1757,25 @@ PLOC_clear=PLOC2D_corrClearPose
             end
             # end: URCap Program Node
           else:
-            $ 150 "ElseIf shitrobot ≟ 5" "noBreak"
+            $ 152 "ElseIf shitrobot ≟ 5" "noBreak"
             if (shitrobot  ==  5):
-              $ 151 "orient≔rpy2rotvec(rpy_base+[0,0,parallelogram[5]])" "noBreak"
+              $ 153 "orient≔rpy2rotvec(rpy_base+[0,0,parallelogram[5]])" "noBreak"
               global orient=rpy2rotvec(rpy_base+[0,0,parallelogram[5]])
-              $ 152 "parallelogram≔pose_add(parallelogram, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
+              $ 154 "parallelogram≔pose_add(parallelogram, p[0,0,0,orient[0], orient[1], orient[2]])" "noBreak"
               global parallelogram= pose_add (parallelogram, p[0,0,0,orient[0], orient[1], orient[2]])
-              $ 153 "MoveJ" "noBreak"
-              $ 154 "parallelogram" "noBreak"
+              $ 155 "MoveJ" "noBreak"
+              $ 156 "parallelogram" "noBreak"
               set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
               movej(parallelogram, a=1.3962634015954636, v=1.0471975511965976)
-              $ 155 "parallelogram≔pose_add(parallelogram, placing_offset)" "noBreak"
+              $ 157 "parallelogram≔pose_add(parallelogram, placing_offset)" "noBreak"
               global parallelogram= pose_add (parallelogram, placing_offset)
-              $ 156 "MoveJ" "noBreak"
-              $ 157 "parallelogram" "noBreak"
+              $ 158 "MoveJ" "noBreak"
+              $ 159 "parallelogram" "noBreak"
               movej(parallelogram, a=1.3962634015954636, v=1.0471975511965976)
               # begin: URCap Program Node
               #   Source: Robotiq_Grippers, 3.19.1.111718, Robotiq Inc.
               #   Type: Gripper
-              $ 158 "Gripper Open (1)" "noBreak"
+              $ 160 "Gripper Open (1)" "noBreak"
               gripper_slave_ids_9 = [9]
               popupErrorGripperWord = "Gripper"
               popupErrorNoConnection1 = "must be connected to run this program."
@@ -1824,11 +1826,11 @@ PLOC_clear=PLOC2D_corrClearPose
       end
     end
     # end: URCap Program Node
-    $ 159 "i≔i+1"
+    $ 161 "i≔i+1"
     global i=i+1
   end
-  $ 160 "MoveJ"
-  $ 161 "Start" "breakAfter"
+  $ 162 "MoveJ"
+  $ 163 "Start" "breakAfter"
   set_tcp(p[0.0,0.0,0.165,0.0,0.0,0.0])
   movej(get_inverse_kin(Start_p, qnear=Start_q), a=1.3962634015954636, v=1.0471975511965976, r=0.01)
 end

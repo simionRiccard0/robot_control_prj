@@ -4,9 +4,9 @@
      Gripper Activate
      Gripper Open (1)
      l≔make_list(42, 0)
-     open_socket≔socket_open("192.168.65.184", 8888, "ur5e_pc")
+     open_socket≔socket_open("192.168.65.161", 8888, "ur5e_pc")
      Loop open_socket≟ False 
-       open_socket≔socket_open("192.168.65.184", 8888, "ur5e_pc")
+       open_socket≔socket_open("192.168.65.161", 8888, "ur5e_pc")
      placing_offset≔p[0,0,-0.02,0,0,0]
      rpy_base≔rotvec2rpy([2.225, -2.208, 0])
      orient≔[0,0,0]
@@ -82,7 +82,9 @@
                'Popup'
                If shitrobot ≟ 1
                  orient≔rpy2rotvec(rpy_base+[0,0,triangle_mid[5]])
-                 triangle_mid≔pose_add(triangle_mid, p[0,0,0,orient[0], orient[1], orient[2]])
+                 'triangle_mid≔pose_add(triangle_mid, p[0,0,0,orient[0], orient[1], orient[2]])'
+                 triangle_mid≔p[triangle_mid[0], triangle_mid[1], triangle_mid[2],orient[0], orient[1], orient[2]]
+                 debug1≔rotvec2rpy([triangle_mid[5], triangle_mid[4], triangle_mid[5]])
                  MoveJ
                    triangle_mid
                    triangle_mid≔pose_add(triangle_mid, placing_offset)

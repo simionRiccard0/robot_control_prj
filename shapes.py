@@ -34,18 +34,18 @@ def init_shapes():
 		"triangle_small": {
 			"points": [(TRGL_LNGTH_SML, TRGL_LNGTH_SML), (TRGL_LNGTH_SML, 0), (0, TRGL_LNGTH_SML)],
 			"vectors": [(-(VECTOR_LENGTH - TRGL_SML_COG)*np.sin(np.pi/4), (VECTOR_LENGTH - TRGL_SML_COG)*np.cos(np.pi/4)),
-			((VECTOR_LENGTH - TRGL_SML_COG)*np.cos(np.pi/4), (VECTOR_LENGTH - TRGL_SML_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle
+			(-(VECTOR_LENGTH - TRGL_SML_COG)*np.cos(np.pi/4), -(VECTOR_LENGTH - TRGL_SML_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle
 			"count": 2
 		},
 		"triangle_mid": {
 			"points": [(TRGL_LNGTH_MID, TRGL_LNGTH_MID), (TRGL_LNGTH_MID, 0), (0, TRGL_LNGTH_MID)],
-			"vectors": [(-(VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4), (VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4)),
-			((VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4), (VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle
+			"vectors": [((VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4), -(VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4)),
+			((-VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4), -(VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle
 			"count": 1
 		},
 		"triangle_big": {
 			"points": [(TRGL_LNGTH_LRG, TRGL_LNGTH_LRG), (TRGL_LNGTH_LRG, 0), (0, TRGL_LNGTH_LRG)],
-			"vectors": [(-(VECTOR_LENGTH - TRGL_LRG_COG)*np.sin(np.pi/4), (VECTOR_LENGTH - TRGL_LRG_COG)*np.cos(np.pi/4)),
+			"vectors": [(-(VECTOR_LENGTH - TRGL_LRG_COG)*np.sin(np.pi/4), -(VECTOR_LENGTH - TRGL_LRG_COG)*np.cos(np.pi/4)),
 			((VECTOR_LENGTH - TRGL_LRG_COG)*np.cos(np.pi/4), (VECTOR_LENGTH - TRGL_LRG_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle
 			"count": 2
 		},

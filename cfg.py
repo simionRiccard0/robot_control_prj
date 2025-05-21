@@ -4,7 +4,7 @@ import pygame
 # Configuration file for constants and settings
 
 # IP Address
-ip_address = "192.168.65.184"
+ip_address = "192.168.65.161"
 trgt_port = 8888
 
 # Placing coordinates

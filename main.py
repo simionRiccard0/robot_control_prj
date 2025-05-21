@@ -5,6 +5,7 @@ from shapes import Shape, extract_counts
 import ur_comm as ur
 import threading
 import time
+import numpy as np
 
 def snap_to_nearest(piece):
 	for other_piece in cfg.pieces:
@@ -28,7 +29,8 @@ def piece_to_pose(center, angle):
 			cfg.TZ, 
 			cfg.RX,
 			cfg.RY, 
-			angle - cfg.RZ]
+			round((angle - cfg.RZ)*np.pi/180, 3)]
+	print("Angle : ", round((angle - cfg.RZ)*np.pi/180, 3))
 	return tmp_p
 
 def fetch_total_counts(data_dict):
@@ -71,21 +73,22 @@ def export_layout():
 
 	for p in cfg.pieces:
 		if p.shape_type == "triangle_mid":
-			layout[0] = piece_to_pose(p.center, p.angle-90)
+			
+			layout[0] = piece_to_pose(p.center, p.angle-135)
 
 		elif p.shape_type == "triangle_small":
-			layout[1+small_i] = piece_to_pose(p.center, p.angle-90)
+			layout[1+small_i] = piece_to_pose(p.center, p.angle+90)
 			small_i += 1
 
 		elif p.shape_type == "triangle_big":
-			layout[1+big_i] = piece_to_pose(p.center, p.angle-90)
+			layout[3+big_i] = piece_to_pose(p.center, p.angle+100)
 			big_i += 1
 
 		elif p.shape_type == "square":
-			layout[5] = piece_to_pose(p.center, p.angle)
+			layout[5] = piece_to_pose(p.center, p.angle+100)
 
 		elif p.shape_type == "parallelogram":
-			layout[6] = piece_to_pose(p.center, p.angle)
+			layout[6] = piece_to_pose(p.center, p.angle+100)
 	print("Tangram Layout:")
 	ACK = False
 	ur.send_string("ACK")
