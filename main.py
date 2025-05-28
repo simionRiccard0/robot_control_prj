@@ -81,14 +81,14 @@ def export_layout():
 			small_i += 1
 
 		elif p.shape_type == "triangle_big":
-			layout[3+big_i] = piece_to_pose(p.center, p.angle+100)
+			layout[3+big_i] = piece_to_pose(p.center, p.angle+90)
 			big_i += 1
 
 		elif p.shape_type == "square":
-			layout[5] = piece_to_pose(p.center, p.angle+100)
+			layout[5] = piece_to_pose(p.center, p.angle)
 
 		elif p.shape_type == "parallelogram":
-			layout[6] = piece_to_pose(p.center, p.angle+100)
+			layout[6] = piece_to_pose(p.center, p.angle)
 	print("Tangram Layout:")
 	ACK = False
 	ur.send_string("ACK")

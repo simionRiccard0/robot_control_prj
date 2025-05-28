@@ -39,8 +39,8 @@ def init_shapes():
 		},
 		"triangle_mid": {
 			"points": [(TRGL_LNGTH_MID, TRGL_LNGTH_MID), (TRGL_LNGTH_MID, 0), (0, TRGL_LNGTH_MID)],
-			"vectors": [((VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4), -(VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4)),
-			((-VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4), -(VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle
+			"vectors": [((VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4), (VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4)),
+			((VECTOR_LENGTH - TRGL_MID_COG)*np.cos(np.pi/4), -(VECTOR_LENGTH - TRGL_MID_COG)*np.sin(np.pi/4))],  # Example vectors for the triangle
 			"count": 1
 		},
 		"triangle_big": {
